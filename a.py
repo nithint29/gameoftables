@@ -1,15 +1,21 @@
-import urllib.request, json, pandas as pd, random
-with urllib.request.urlopen("https://uinames.com/api/?amount=500") as url:
-    data = json.loads(url.read().decode())
+import requests, random
+import numpy as np
+import csv
 
-def isEnglish(s):
-    try:
-        s.encode(encoding='utf-8').decode('ascii')
-    except UnicodeDecodeError:
-        return False
-    else:
-        return True
+data = []
+for i in range(10):
+    params = {"amount":500,"region":"germany"}
+    new = requests.get("https://uinames.com/api",params).json()
+    data.extend(new)
 
+houses = ['Stark', 'Lannister', 'Targaryen', 'Martell', 'Bolton', 'Baratheon', 'Tyrell', 'Arryn', 'Greyjoy', 'Frey', 'None']
+p = np.array([1,        2,          .5,         1.5,       .5,          1,         1.5,     .2,        .8,     1,       10   ])
+p = p/20.0
+print(np.sum(p))
+
+db = open('db.txt','w')
+csvwriter = csv.writer(db)
+csvwriter.writerow(data[0].keys())
 
 for l in range(0,len(data)):
     for key in data[l].keys():
@@ -19,25 +25,39 @@ for l in range(0,len(data)):
             del data[l][key]        
 
 
-    
+#change last names
 for i in range (0,len(data)):
-    randNum = random.randint(1,10)
-    if randNum == 1 or randNum == 3 or randNum == 4:
-        data[i]['surname'] = 'Lannister'
-    if randNum == 2:
-        data[i]['surname'] = 'Stark'
-    if randNum == 5:
-        data[i]['surname'] = 'Tyrell'
+    name = np.random.choice(houses, 1, p=p)[0]
+    if(name != 'None'):
+        data[i]['surname'] = name
 
+#add royaltyscales
 for k in range (0,len(data)):
-    rand = random.randint(1,6)
-    royalRand = random.randint(7,10)
-    if data[k]['surname'] == 'Lannister' or data[k]['surname'] == 'Stark' or data[k]['surname'] == 'Tyrell':
-        data[k]['RoyaltyScale'] = royalRand            
+    rand = random.randint(1,3)
+    royalRand = random.randint(4,10)
+    if data[k]['surname'] in houses:
+        data[k]['RoyaltyScale'] = royalRand
     else:
-        data[k]['RoyaltyScale'] = rand       
+        data[k]['RoyaltyScale'] = rand
 
-print(data)
+    #write to csv file
+    csvwriter.writerow(data[k].values())
+
+
+db.close()
+
+
+
+
+def isEnglish(s):
+    try:
+        s.encode(encoding='utf-8').decode('ascii')
+    except UnicodeDecodeError:
+        return False
+    else:
+        return True
+
+print(data, len(data))
 
 
 
