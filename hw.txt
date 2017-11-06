@@ -17,3 +17,20 @@ CREATE TABLE Romances (
 	FOREIGN KEY(name2, surname2) REFERENCES Characters(name, surname));
 
 3)
+NOT EXISTS (
+		SELECT name1, surname1, name2, surname2
+		FROM Romances
+		WHERE surname1 = surname2 )
+
+4) Our code checks, while the romance values are being created, if the surnames match.
+If they do, a new romance is rerolled until the surnames do not match. However, if the surnames are "Lannister" or "Targaryen", the surnames are allowed to match, reflecting Game of Thrones' houses.
+
+Also, we provided a function called 'assertion' to verify that the pattern holds. It takes our data as input(potentially after a new tuple has been added) and checks to see if the pattern holds, returning 'REJECT' if the pattern breaks, and 'ACCEPT' if the pattern holds.
+
+***SQL Prototype -- implemented in our python code in function named 'assertion'***
+CREATE ASSERTION NoIncest CHECK (
+	NOT EXISTS (
+		SELECT name1, surname1, name2, surname2
+		FROM Romances
+		WHERE surname1 = surname2 AND surname1 <> 'Lannister' AND surname1 <> 		'Targaryen')
+);

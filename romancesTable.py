@@ -27,3 +27,13 @@ for i in range(0,len(data)):
     if 'region' in data[i]: del data[i]['region']
     if 'gender' in data[i]: del data[i]['gender']
 print(data)
+
+
+def assertion(data):
+    for d in data:
+        if(d['surname'] == d['surname2'] and d['surname'] != 'Lannister' and d['surname'] != 'Targaryen'):
+            return 'REJECT'
+        else:
+            return 'ACCEPT'
+
+print(assertion(data))
