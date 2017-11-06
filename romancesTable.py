@@ -1,18 +1,19 @@
-import urllib.request, json, pandas as pd, random
-with urllib.request.urlopen("https://uinames.com/api/?amount=500") as url:
+import urllib.request, json, random, numpy as np
+import urllib
+with urllib.request.urlopen("https://uinames.com/api/?amount=500&region=germany") as url:
     data = json.loads(url.read().decode())
 
-with urllib.request.urlopen("https://uinames.com/api/?amount=500") as url2:
+with urllib.request.urlopen("https://uinames.com/api/?amount=500&region=germany") as url2:
     data2 = json.loads(url2.read().decode())
 
+houses = ['Stark', 'Lannister', 'Targaryen', 'Martell', 'Bolton', 'Baratheon', 'Tyrell', 'Arryn', 'Greyjoy', 'Frey', 'None']
+p = np.array([1,        2,          .5,         1.5,       .5,          1,         1.5,     .2,        .8,     1,       10  ])
+p = p/np.sum(p)
+
 for i in range (0,len(data)):
-    randNum = random.randint(1,10)
-    if randNum == 1 or randNum == 3 or randNum == 4:
-        data[i]['surname'] = 'Lannister'
-    if randNum == 2:
-        data[i]['surname'] = 'Stark'
-    if randNum == 5:
-        data[i]['surname'] = 'Tyrell'
+    name = np.random.choice(houses, 1, p=p)[0]
+    if(name != 'None'):
+        data[i]['surname'] = name
 
 for i in range(0,len(data)):
     randNum = random.randint(0,499)

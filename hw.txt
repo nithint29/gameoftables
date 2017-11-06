@@ -1,0 +1,19 @@
+1)
+CREATE TRIGGER RomTrig
+AFTER DELETE ON Characters
+REFERENCING OLD TUPLE AS oldTuple
+FOR EACH ROW
+UPDATE Romances
+SET name2 = 'Jon', surname2 = 'Snow'
+WHERE name1 = oldTuple.name1 AND name2 = oldTuple.name2;
+
+2)
+CREATE TABLE Romances (
+	name1		CHAR(20),
+	surname1	CHAR(20),
+	name2		CHAR(20),
+	surname2	CHAR(20),
+	FOREIGN KEY(name1, surname1) REFERENCES Characters(name, surname),
+	FOREIGN KEY(name2, surname2) REFERENCES Characters(name, surname));
+
+3)
