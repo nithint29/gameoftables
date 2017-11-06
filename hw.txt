@@ -5,7 +5,7 @@ REFERENCING OLD TUPLE AS oldTuple
 FOR EACH ROW
 UPDATE Romances
 SET name2 = 'Jon', surname2 = 'Snow'
-WHERE name1 = oldTuple.name1 AND name2 = oldTuple.name2;
+WHERE name1 = oldTuple.name1 AND surname1 = oldTuple.surname1;
 
 2)
 CREATE TABLE Romances (
