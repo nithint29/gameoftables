@@ -1,0 +1,5 @@
+https://hackernoon.com/how-to-combine-a-nodejs-back-end-with-a-reactjs-front-end-app-ea9b24715032
+
+https://www.codementor.io/codeforgeek/node-js-mysql-8b5nh45r9
+
+https://www.terlici.com/2015/08/13/mysql-node-express.html
