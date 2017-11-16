@@ -7,19 +7,22 @@ from unidecode import unidecode
 
 houses = ['Stark', 'Lannister', 'Targaryen', 'Martell', 'Bolton', 'Baratheon', 'Tyrell', 'Arryn', 'Greyjoy', 'Frey', 'None']
 p = np.array([1,        2,          .5,         1.5,       .5,          1,         1.5,     .2,        .8,     1,       30   ])
+combatAbility = {'Stark':65, 'Lannister':35, 'Targaryen':65, 'Martell':50, 'Bolton':20,
+                'Baratheon':60, 'Tyrell':15, 'Arryn':40, 'Greyjoy':30, 'Frey':10}
 p = p/np.sum(p)
 print(np.sum(p[:-1]))
 
 
 #obtain data from api
-def pullData(amount=500):
+def pullData(amount=1):
     regions = ["germany","slovakia","romania","france","italy","poland","finland","sweden","estonia","netherlands"]
     data = []
     for r in regions:
-        print("batch: {}".format(r))
-        params = {"amount":500,"region":r}
-        new = requests.get("https://uinames.com/api",params).json()
-        data.extend(new)
+        for i in range(amount):
+            print("batch: {}".format(r))
+            params = {"amount":500,"region":r}
+            new = requests.get("https://uinames.com/api",params).json()
+            data.extend(new)
 
     #normalize the data:
     for d in data:
@@ -49,10 +52,10 @@ def createCharactersTable(input, filename="characters.txt"):
         name = np.random.choice(houses, 1, p=p)[0]
         if(name != 'None'):
             data[i]['surname'] = name
-        data[i]['charID'] = '{0:04d}'.format(i+1)
+        data[i]['charID'] = '{0:04d}'.format(i)
         data[i]['main'] = 'false'
 
-    #add royaltyscales and age
+    #add royaltyscales
     for k in range (0,len(data)):
         rand = random.randint(1,3)
         royalRand = random.randint(4,10)
@@ -105,24 +108,49 @@ def createRomances(characters, filename = 'romances.txt'):
     csvwriter.writerow(columns)
 
     size = len(data)
-    roms = [{}]*size
+    roms = []
     i = 0
-    while(i<2000):
-        randNum = random.randint(0, size-1)
-        if (data[randNum]['surname'] == data[i]['surname']) and (
-                data[randNum]['surname'] != 'Lannister' or data[randNum]['surname'] != 'Targaryen'):
-            i = i - 1
+    while(i<3000):
+        randNum1 = random.randint(0, size-1)
+        randNum2 = random.randint(0, size-1)
+        person1 = data[randNum1]
+        person2 = data[randNum2]
+        d = {}
+        d['charID1'], d['name1'], d['surname1']= person1['charID'], person1['name'], person1['surname']
+
+        if(person1['charID'] == person2['charID'] or
+               (person1['surname'] == person2['surname'] and (person1['surname'] != 'Lannister' and person1['surname'] !='Targaryen') ) ):
+            i-=1
             continue
-        data[i]['name2'] = data[random.randint(0, size-1)]['name']
-        data[i]['surname2'] = data[random.randint(0, size-1)]['surname']
 
-    for i in range(0, len(data)):
-        if 'region' in data[i]: del data[i]['region']
-        if 'gender' in data[i]: del data[i]['gender']
-    print(data)
+        sameGenRoll = random.randint(1,100)
+        if(person1['gender'] == person2['gender']):
+            if(sameGenRoll<=90):
+                i-=1
+                continue
 
-    i+=1
+        otherHouseRoll = random.randint(1,100)
+        if(person2['surname'] != person1['surname'] and person2['surname'] in houses and person1['surname'] in houses):
+            if(otherHouseRoll<=50):
+                i-=1
+                continue
 
+        targRoll = random.randint(1, 100)
+        if(person2['surname'] == 'Targaryen' and person1['surname'] != 'Targaryen' or person2['surname'] != 'Targaryen' and person1['surname'] == 'Targaryen'):
+            if(targRoll<=98):
+                i-=1
+                continue
+
+
+        d['charID2'] = person2['charID']
+        d['name2'] = person2['name']
+        d['surname2'] = person2['surname']
+        roms.append(d)
+
+        csvwriter.writerow([d['charID1'], d['name1'], d['surname1'], d['charID2'], d['name2'], d['surname2']])
+        i+=1
+    table.close()
+    return roms
 
 
 
@@ -135,14 +163,118 @@ def isEnglish(s):
         return True
 
 
+#should return all dead people
+def createKills(allegiance, filename = 'kills.txt'):
+    data = allegiance[:]
+    print('in kills')
+
+    columns = ['charID1', 'name1', 'surname1', 'charID2', 'name2', 'surname2']
+
+    size = len(data)
+    kills = []
+    dead = []
+    i = 0
+
+    randNum2 = random.randint(0, size - 1)
+    victim = data[randNum2]
+    hero = None
+
+    while(len(dead)<2500):
+        print(i, len(dead))
+        randNum1 = random.randint(0, size-1)
+        killer = data[randNum1]
+        if(hero != None):
+            killer = hero
+
+        while (victim['charID'] in dead):
+            randNum2 = random.randint(0, size - 1)
+            victim = data[randNum2]
+        d = {}
+        d['killerID'], d['killerName'], d['killerSurname']= killer['charID'], killer['name'], killer['surname']
+
+        underdogRoll = random.randint(1,100)
+        if(killer['surname'] not in houses and victim['surname'] in houses):
+            if(underdogRoll<= 60):
+                i-=1
+                continue
+
+        allyRoll = random.randint(1,100)
+        if(killer['allegiance'] == victim['allegiance']):
+            if (allyRoll <= 95):
+                i -= 1
+                continue
+
+        heroRoll = random.randint(1,100)
+        if(heroRoll <= combatAbility.get(killer['surname'], 10)):
+            hero = killer
+        else:
+            hero = None
+
+        d['victimID'] =victim['charID']
+        d['victimName'] = victim['name']
+        d['victimSurname'] = victim['surname']
+        kills.append(d)
+        dead.append(victim['charID'])
+
+
+        writeTable(kills, ['killerID','killerName','killerSurname','victimID','victimName','victimSurname'], filename)
+
+        i+=1
+
+    return kills
+
+#reads a table from text file as a dict
+def readFromText(filename):
+    file = open(filename, 'r')
+    lines = file.readlines()
+
+    d = {}
+    titles = lines[0][0:-1].split(',')
+    for col in titles:
+        d[col] = 0
+
+    data = []
+    for line in lines[1:]:
+        line = line[0:-1]
+        colData = line.split(',')
+
+        if(len(colData)>1):
+            for i,key in enumerate(titles):
+                d = d.copy()
+                d[key] = colData[i]
+            data.append(d)
+
+    file.close()
+    return data
+
+
+#writes a table to csv (only the columns listed in titles)
+def writeTable(data, titles, filename):
+    table = open(filename, 'w+')
+    csvwriter = csv.writer(table)
+    csvwriter.writerow(titles)
+
+    for d in data:
+        line = [d[i] for i in titles]
+        csvwriter.writerow(line)
+    table.close()
+
+
+
 if(__name__ == '__main__'):
-    # rawdata = pullData()
+    # rawdata = pullData(1)
     # pickle.dump(rawdata, open('rawdata.pkl', 'wb'))
 
     rawdata = pickle.load(open('rawdata.pkl','rb'))
-
+    #
     chars = createCharactersTable(rawdata)
-    data = createAllegianceTable(chars)
+    # chars = readFromText('characters.txt')
+    allies = createAllegianceTable(chars)
+    roms = createRomances(chars)
+    kills = createKills(allies)
+
+    # writeTable(roms, ['charID1', 'charID2'], 'new.txt')
+
 
 
 
