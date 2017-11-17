@@ -7,10 +7,11 @@ from unidecode import unidecode
 
 houses = ['Stark', 'Lannister', 'Targaryen', 'Martell', 'Bolton', 'Baratheon', 'Tyrell', 'Arryn', 'Greyjoy', 'Frey', 'None']
 p = np.array([1,        2,          .5,         1.5,       .5,          1,         1.5,     .2,        .8,     1,       30   ])
-combatAbility = {'Stark':65, 'Lannister':35, 'Targaryen':65, 'Martell':50, 'Bolton':20,
-                'Baratheon':60, 'Tyrell':15, 'Arryn':40, 'Greyjoy':30, 'Frey':10}
+combatAbility = {'Stark':80, 'Lannister':45, 'Targaryen':85, 'Martell':60, 'Bolton':25,
+                'Baratheon':70, 'Tyrell':30, 'Arryn':60, 'Greyjoy':40, 'Frey':15}
 p = p/np.sum(p)
 print(np.sum(p[:-1]))
+targs = []
 
 
 #obtain data from api
@@ -100,22 +101,37 @@ def createAllegianceTable(characters, filename="allegiances.txt"):
     table.close()
     return data
 
-def createRomances(characters, filename = 'romances.txt'):
+def createRomances(characters, filename = 'romances.txt', num=2500):
     data = characters[:]
     table = open(filename, 'w+')
     csvwriter = csv.writer(table)
     columns = ['charID1', 'name1', 'surname1', 'charID2', 'name2', 'surname2']
     csvwriter.writerow(columns)
 
+
+    for i in data:
+        if i['surname'] == 'Targaryen':
+            targs.append(i)
+
     size = len(data)
     roms = []
     i = 0
-    while(i<3000):
+    while(len(roms)<num):
+        print(len(roms))
         randNum1 = random.randint(0, size-1)
         randNum2 = random.randint(0, size-1)
         person1 = data[randNum1]
         person2 = data[randNum2]
         d = {}
+
+        targRoll = random.randint(1, 100)
+        if (person1['surname'] != 'Targaryen' and person2['surname'] == 'Targaryen' and targRoll<=40):
+            randTarg = targs[random.randint(1, len(targs) - 1)]
+            while(randTarg['charID'] == person2['charID']):
+                randTarg = targs[random.randint(1, len(targs) - 1)]
+            person1 = randTarg
+
+
         d['charID1'], d['name1'], d['surname1']= person1['charID'], person1['name'], person1['surname']
 
         if(person1['charID'] == person2['charID'] or
@@ -136,10 +152,9 @@ def createRomances(characters, filename = 'romances.txt'):
                 continue
 
         targRoll = random.randint(1, 100)
-        if(person2['surname'] == 'Targaryen' and person1['surname'] != 'Targaryen' or person2['surname'] != 'Targaryen' and person1['surname'] == 'Targaryen'):
-            if(targRoll<=98):
-                i-=1
-                continue
+        if(person2['surname'] != 'Targaryen' and person1['surname'] == 'Targaryen' and targRoll<=50):
+            randTarg = targs[random.randint(1,len(targs)-1)]
+            person2 = randTarg
 
 
         d['charID2'] = person2['charID']
