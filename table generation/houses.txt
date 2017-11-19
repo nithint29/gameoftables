@@ -1,0 +1,11 @@
+name,power,leader,wealth
+Stark,8,Ned Stark,5
+Lannister,9,Cersei Lannister,10
+Targaryen,10,Daenerys Targaryen,8
+Martell,6,Doran Martell,8
+Bolton,2,Ramsay Bolton,3
+Baratheon,4,Robert Baratheon,4
+Tyrell,5,Olenna Tyrell,9
+Arryn,6,Robin Arryn,6
+Greyjoy,8,Euron Greyjoy,7
+Frey,2,Walder Frey,2
