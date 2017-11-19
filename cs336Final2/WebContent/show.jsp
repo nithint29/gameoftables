@@ -39,17 +39,17 @@ out.print(header);
 			String str = "";
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
 			if (entity.equals("characters")){
-			str = "SELECT * FROM " + entity;
+			str = "SELECT charID,name,surname,gender,royaltyscale FROM " + entity;
 			}
 			else
 			{
-				str = "SELECT * FROM characters where surname = '" + entity+"'";
+				str = "SELECT charID,name,surname,gender,royaltyscale FROM characters";
 			}
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
 			
 			//Make an HTML table to show the results in:
-			out.print("<table class=\"table\">");
+			out.print("<table class=\"table table-hover\">");
 			
 			//make a row
 			out.print("<tr>");
@@ -74,26 +74,38 @@ out.print(header);
 			out.print("</td>");
 			out.print("</tr>");
 			//parse out the results
-			while (result.next()) {
+			while (result.next() && result !=null) {
 				//make a row
 				out.print("<tr>");
 				//make a column
-				out.print("<td>");
+				 //out.print("<td><a href=\"#\">Two</a></td>");
+				String charName = result.getString("name");
+				String id = result.getString("charID");
+				out.print("<td><a href = \"character.jsp?name=" + charName + "&id=" + id+"\" >");
 				//Print out current bar or beer name:
+				if (result.getString("name")!=null)
+				{
 				out.print(result.getString("name"));
-				out.print("</td>");
+				}
+				out.print("</a></td>");
 				out.print("<td>");
 				//Print out current bar/beer additional info: Manf or Address
-				if (entity.equals("beers"))
-					out.print(result.getString("manf"));
-				else
-					out.print(result.getString("surname"));
+				if (result.getString("surname")!=null)
+				{
+				out.print(result.getString("surname"));
+				}
 				out.print("</td>");
 				out.print("<td>");
+				if (result.getString("gender")!=null)
+				{
 				out.print(result.getString("gender"));
+				}
 				out.print("</td>");
 				out.print("<td>");
+				if (result.getString("royaltyScale")!=null)
+				{
 				out.print(result.getString("royaltyScale"));
+				}
 				out.print("</td>");
 				out.print("</tr>");
 			}
