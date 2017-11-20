@@ -281,12 +281,13 @@ if(__name__ == '__main__'):
     # pickle.dump(rawdata, open('rawdata.pkl', 'wb'))
 
     rawdata = pickle.load(open('rawdata.pkl','rb'))
+    print(rawdata)
     #
-    chars = createCharactersTable(rawdata)
-    # chars = readFromText('characters.txt')
-    allies = createAllegianceTable(chars)
-    roms = createRomances(chars)
-    kills = createKills(allies)
+    # chars = createCharactersTable(rawdata)
+    # # chars = readFromText('characters.txt')
+    # allies = createAllegianceTable(chars)
+    # roms = createRomances(chars)
+    # kills = createKills(allies)
 
     # writeTable(roms, ['charID1', 'charID2'], 'new.txt')
 
