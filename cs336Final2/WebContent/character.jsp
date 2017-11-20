@@ -24,11 +24,6 @@ textAlign: center;
 
 <body>
 <div class="container">
-<h2 class = "font"><%
-String name =request.getParameter("name");
-out.print(name + " Romances");
-%>
-</h2>
 <% 
 try
 {
@@ -38,11 +33,17 @@ try
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			Statement stmt2 = con.createStatement();
+			Statement stmt3 = con.createStatement();
 			String id = request.getParameter("id");
 			String romances = "SELECT name1,surname1,name2,surname2 from romances where charID1 =" + id;
 			String totalRom = "SELECT count(*) as total from romances where charID1 =" + id;
 			String kills = "SELECT * from kills where killerID = " + id;
 			String totalKills = "SELECT count(*) as total from kills where killerID = " + id;
+			String alleg = "SELECT * from allegiances where charID = " + id;
+			ResultSet allegRes = stmt3.executeQuery(alleg);
+			allegRes.next();
+			String all = allegRes.getString("allegiance");
+			allegRes.close();
 			ResultSet count = stmt.executeQuery(totalRom);
 			count.next();
 			int total = count.getInt("total");
@@ -53,6 +54,19 @@ try
 			myCount.close();
 			ResultSet result = stmt.executeQuery(romances);
 			ResultSet victims = stmt2.executeQuery(kills);
+			String name =request.getParameter("name");
+			out.print("<h1 class = \"text-center font\">");
+			out.print(name);
+			out.print("</h1>");
+			out.print("<br>");
+			out.print("<h2 class = \"font\">");
+			out.print("Alleged House: " + all);
+			out.print("</h2>");
+			out.print("<br>");
+			out.print("<h2 class = \"font\">");
+			out.print("Romances");
+			out.print("</h2>");
+			out.print("<br>");
 			out.print("<table class=\"table table-hover\">");
 			
 			//make a row
@@ -85,12 +99,8 @@ try
 			out.print("<br>");
 			out.print("<br>");
 			out.print("<br>");
-			out.print("<br>");
-			out.print("<br>");
-			out.print("<br>");
 			out.print("<h2 class = \"font\">");
-			String charName =request.getParameter("name");
-			out.print(charName + " Kills");
+			out.print("Kills");
 			out.print("</h2>");
 			out.print("<table class=\"table table-hover\">");
 			

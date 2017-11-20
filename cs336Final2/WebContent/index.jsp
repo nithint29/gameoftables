@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
@@ -17,6 +17,15 @@
 .jumbotron { 
     background-color: #000000; /* Orange f4511e */
     color: #C0C0C0;
+}
+.btn-primary{
+    background-color: #30191e !important;
+}
+.btn-primary:hover{
+ background-color: #000000 !important;
+}
+.btn-primary:active{
+background-color: #000000 !important;
 }
 .mynavbar {
 background-color: #A9A9A9;
@@ -125,7 +134,16 @@ textAlign: center;
 </div>
 <div class = "space">
 <p style="text-align:center;"><img src="jonsnow.jpg"></p>
+<FORM TYPE=POST ACTION=checkResult.jsp>
+<BR>
+Choose Filter for Characters: <br>
 
+<input TYPE=checkbox name=gender VALUE=male> Male <BR>
+<input TYPE=checkbox name=allegiance VALUE=stark> Stark <BR>
+<input TYPE=checkbox name=royalty VALUE=royal> Royal>8 <BR>
+<input TYPE=checkbox name=kill VALUE=killer> Kills>2 <BR>
+<br> <INPUT TYPE=submit name=submit Value="Submit">
+</FORM>
 <form style="text-align:center;" method="post" action="show.jsp">
 <button type="submit" name="command" value="characters" class="btn btn-success">
         View All Characters
@@ -139,6 +157,475 @@ textAlign: center;
 <div class = "hr" id = "houses">	
 <div class = "text-center">
 <h2 class = "font">HOUSES</h2>
+</div>
+<button class = "btn btn-primary btn-block" data-toggle="collapse" data-target="#demo">House Stark</button>
+
+<div id="demo" class="collapse">
+<p style="text-align:left;"><img src="starksigil.png" style="width:150px;height:150px;"></p>
+<%
+try {
+	
+	//Get the database connection
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();		
+	//Create a SQL statement
+	Statement stmt = con.createStatement();
+	Statement stmt2 = con.createStatement();
+	Statement stmt3 = con.createStatement();
+	String allegQuery = "SELECT count(*) as total from allegiances where allegiance = \"Stark\"";
+	String leaderQuery = "SELECT * from houses where name = \"Stark\"";
+	String membQuery = "SELECT count(*) as total from characters where surname = \"Stark\"";
+	ResultSet countAlleg = stmt.executeQuery(allegQuery);
+	countAlleg.next();
+	int totalAlleg = countAlleg.getInt("total");
+	countAlleg.close();
+	ResultSet countMemb = stmt2.executeQuery(membQuery);
+	countMemb.next();
+	int totalMemb = countMemb.getInt("total");
+	countMemb.close();
+	ResultSet leader = stmt3.executeQuery(leaderQuery);
+	leader.next();
+	String houseLead = leader.getString("leader");
+	leader.close();
+	out.print("<div class = \"font\">");
+	out.print("<h2>");
+	out.print("Leader of house: " + houseLead);
+	out.print("<br>");
+	out.print("Total characters alleged to this house: " + totalAlleg);
+	out.print("<br>");
+	out.print("Total members from this house: " + totalMemb);
+	out.print("</h2>");
+	out.print("</div>");
+	db.closeConnection(con); 
+}catch(Exception e)
+{
+	out.print(e);
+}
+	
+%>
+</div>
+
+<button class = "btn btn-primary btn-block" data-toggle="collapse" data-target="#demo2">House Lannister</button>
+
+<div id="demo2" class="collapse">
+<p style="text-align:left;"><img src="lannistersigil.png" style="width:150px;height:150px;"></p>
+<%
+try {
+	
+	//Get the database connection
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();		
+	//Create a SQL statement
+	Statement stmt = con.createStatement();
+	Statement stmt2 = con.createStatement();
+	Statement stmt3 = con.createStatement();
+	String allegQuery = "SELECT count(*) as total from allegiances where allegiance = \"Lannister\"";
+	String leaderQuery = "SELECT * from houses where name = \"Lannister\"";
+	String membQuery = "SELECT count(*) as total from characters where surname = \"Lannister\"";
+	ResultSet countAlleg = stmt.executeQuery(allegQuery);
+	countAlleg.next();
+	int totalAlleg = countAlleg.getInt("total");
+	countAlleg.close();
+	ResultSet countMemb = stmt2.executeQuery(membQuery);
+	countMemb.next();
+	int totalMemb = countMemb.getInt("total");
+	countMemb.close();
+	ResultSet leader = stmt3.executeQuery(leaderQuery);
+	leader.next();
+	String houseLead = leader.getString("leader");
+	leader.close();
+	out.print("<div class = \"font\">");
+	out.print("<h2>");
+	out.print("Leader of house: " + houseLead);
+	out.print("<br>");
+	out.print("Total characters alleged to this house: " + totalAlleg);
+	out.print("<br>");
+	out.print("Total members from this house: " + totalMemb);
+	out.print("</h2>");
+	out.print("</div>");
+	db.closeConnection(con); 
+}catch(Exception e)
+{
+	out.print(e);
+}
+	
+%>
+</div>
+
+<button class = "btn btn-primary btn-block" data-toggle="collapse" data-target="#demo3">House Arryn</button>
+
+<div id="demo3" class="collapse">
+<p style="text-align:left;"><img src="arrynsigil.png" style="width:150px;height:150px;"></p>
+<%
+try {
+	
+	//Get the database connection
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();		
+	//Create a SQL statement
+	Statement stmt = con.createStatement();
+	Statement stmt2 = con.createStatement();
+	Statement stmt3 = con.createStatement();
+	String allegQuery = "SELECT count(*) as total from allegiances where allegiance = \"Arryn\"";
+	String leaderQuery = "SELECT * from houses where name = \"Arryn\"";
+	String membQuery = "SELECT count(*) as total from characters where surname = \"Arryn\"";
+	ResultSet countAlleg = stmt.executeQuery(allegQuery);
+	countAlleg.next();
+	int totalAlleg = countAlleg.getInt("total");
+	countAlleg.close();
+	ResultSet countMemb = stmt2.executeQuery(membQuery);
+	countMemb.next();
+	int totalMemb = countMemb.getInt("total");
+	countMemb.close();
+	ResultSet leader = stmt3.executeQuery(leaderQuery);
+	leader.next();
+	String houseLead = leader.getString("leader");
+	leader.close();
+	out.print("<div class = \"font\">");
+	out.print("<h2>");
+	out.print("Leader of house: " + houseLead);
+	out.print("<br>");
+	out.print("Total characters alleged to this house: " + totalAlleg);
+	out.print("<br>");
+	out.print("Total members from this house: " + totalMemb);
+	out.print("</h2>");
+	out.print("</div>");
+	db.closeConnection(con); 
+}catch(Exception e)
+{
+	out.print(e);
+}
+	
+%>
+</div>
+
+<button class = "btn btn-primary btn-block" data-toggle="collapse" data-target="#demo4">House Baratheon</button>
+
+<div id="demo4" class="collapse">
+<p style="text-align:left;"><img src="baratheonsigil.png" style="width:150px;height:150px;"></p>
+<%
+try {
+	
+	//Get the database connection
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();		
+	//Create a SQL statement
+	Statement stmt = con.createStatement();
+	Statement stmt2 = con.createStatement();
+	Statement stmt3 = con.createStatement();
+	String allegQuery = "SELECT count(*) as total from allegiances where allegiance = \"Baratheon\"";
+	String leaderQuery = "SELECT * from houses where name = \"Baratheon\"";
+	String membQuery = "SELECT count(*) as total from characters where surname = \"Baratheon\"";
+	ResultSet countAlleg = stmt.executeQuery(allegQuery);
+	countAlleg.next();
+	int totalAlleg = countAlleg.getInt("total");
+	countAlleg.close();
+	ResultSet countMemb = stmt2.executeQuery(membQuery);
+	countMemb.next();
+	int totalMemb = countMemb.getInt("total");
+	countMemb.close();
+	ResultSet leader = stmt3.executeQuery(leaderQuery);
+	leader.next();
+	String houseLead = leader.getString("leader");
+	leader.close();
+	out.print("<div class = \"font\">");
+	out.print("<h2>");
+	out.print("Leader of house: " + houseLead);
+	out.print("<br>");
+	out.print("Total characters alleged to this house: " + totalAlleg);
+	out.print("<br>");
+	out.print("Total members from this house: " + totalMemb);
+	out.print("</h2>");
+	out.print("</div>");
+	db.closeConnection(con); 
+}catch(Exception e)
+{
+	out.print(e);
+}
+	
+%>
+</div>
+
+<button class = "btn btn-primary btn-block" data-toggle="collapse" data-target="#demo5">House Bolton</button>
+
+<div id="demo5" class="collapse">
+<p style="text-align:left;"><img src="boltonsigil.png" style="width:150px;height:150px;"></p>
+<%
+try {
+	
+	//Get the database connection
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();		
+	//Create a SQL statement
+	Statement stmt = con.createStatement();
+	Statement stmt2 = con.createStatement();
+	Statement stmt3 = con.createStatement();
+	String allegQuery = "SELECT count(*) as total from allegiances where allegiance = \"Bolton\"";
+	String leaderQuery = "SELECT * from houses where name = \"Bolton\"";
+	String membQuery = "SELECT count(*) as total from characters where surname = \"Bolton\"";
+	ResultSet countAlleg = stmt.executeQuery(allegQuery);
+	countAlleg.next();
+	int totalAlleg = countAlleg.getInt("total");
+	countAlleg.close();
+	ResultSet countMemb = stmt2.executeQuery(membQuery);
+	countMemb.next();
+	int totalMemb = countMemb.getInt("total");
+	countMemb.close();
+	ResultSet leader = stmt3.executeQuery(leaderQuery);
+	leader.next();
+	String houseLead = leader.getString("leader");
+	leader.close();
+	out.print("<div class = \"font\">");
+	out.print("<h2>");
+	out.print("Leader of house: " + houseLead);
+	out.print("<br>");
+	out.print("Total characters alleged to this house: " + totalAlleg);
+	out.print("<br>");
+	out.print("Total members from this house: " + totalMemb);
+	out.print("</h2>");
+	out.print("</div>");
+	db.closeConnection(con); 
+}catch(Exception e)
+{
+	out.print(e);
+}
+	
+%>
+</div>
+
+<button class = "btn btn-primary btn-block" data-toggle="collapse" data-target="#demo6">House Frey</button>
+
+<div id="demo6" class="collapse">
+<p style="text-align:left;"><img src="freysigil.png" style="width:150px;height:150px;"></p>
+<%
+try {
+	
+	//Get the database connection
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();		
+	//Create a SQL statement
+	Statement stmt = con.createStatement();
+	Statement stmt2 = con.createStatement();
+	Statement stmt3 = con.createStatement();
+	String allegQuery = "SELECT count(*) as total from allegiances where allegiance = \"Frey\"";
+	String leaderQuery = "SELECT * from houses where name = \"Frey\"";
+	String membQuery = "SELECT count(*) as total from characters where surname = \"Frey\"";
+	ResultSet countAlleg = stmt.executeQuery(allegQuery);
+	countAlleg.next();
+	int totalAlleg = countAlleg.getInt("total");
+	countAlleg.close();
+	ResultSet countMemb = stmt2.executeQuery(membQuery);
+	countMemb.next();
+	int totalMemb = countMemb.getInt("total");
+	countMemb.close();
+	ResultSet leader = stmt3.executeQuery(leaderQuery);
+	leader.next();
+	String houseLead = leader.getString("leader");
+	leader.close();
+	out.print("<div class = \"font\">");
+	out.print("<h2>");
+	out.print("Leader of house: " + houseLead);
+	out.print("<br>");
+	out.print("Total characters alleged to this house: " + totalAlleg);
+	out.print("<br>");
+	out.print("Total members from this house: " + totalMemb);
+	out.print("</h2>");
+	out.print("</div>");
+	db.closeConnection(con); 
+}catch(Exception e)
+{
+	out.print(e);
+}
+	
+%>
+</div>
+
+<button class = "btn btn-primary btn-block" data-toggle="collapse" data-target="#demo7">House Greyjoy</button>
+
+<div id="demo7" class="collapse">
+<p style="text-align:left;"><img src="greyjoysigil.png" style="width:150px;height:150px;"></p>
+<%
+try {
+	
+	//Get the database connection
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();		
+	//Create a SQL statement
+	Statement stmt = con.createStatement();
+	Statement stmt2 = con.createStatement();
+	Statement stmt3 = con.createStatement();
+	String allegQuery = "SELECT count(*) as total from allegiances where allegiance = \"Greyjoy\"";
+	String leaderQuery = "SELECT * from houses where name = \"Greyjoy\"";
+	String membQuery = "SELECT count(*) as total from characters where surname = \"Greyjoy\"";
+	ResultSet countAlleg = stmt.executeQuery(allegQuery);
+	countAlleg.next();
+	int totalAlleg = countAlleg.getInt("total");
+	countAlleg.close();
+	ResultSet countMemb = stmt2.executeQuery(membQuery);
+	countMemb.next();
+	int totalMemb = countMemb.getInt("total");
+	countMemb.close();
+	ResultSet leader = stmt3.executeQuery(leaderQuery);
+	leader.next();
+	String houseLead = leader.getString("leader");
+	leader.close();
+	out.print("<div class = \"font\">");
+	out.print("<h2>");
+	out.print("Leader of house: " + houseLead);
+	out.print("<br>");
+	out.print("Total characters alleged to this house: " + totalAlleg);
+	out.print("<br>");
+	out.print("Total members from this house: " + totalMemb);
+	out.print("</h2>");
+	out.print("</div>");
+	db.closeConnection(con); 
+}catch(Exception e)
+{
+	out.print(e);
+}
+	
+%>
+</div>
+
+<button class = "btn btn-primary btn-block" data-toggle="collapse" data-target="#demo8">House Martell</button>
+
+<div id="demo8" class="collapse">
+<p style="text-align:left;"><img src="martellsigil.png" style="width:150px;height:150px;"></p>
+<%
+try {
+	
+	//Get the database connection
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();		
+	//Create a SQL statement
+	Statement stmt = con.createStatement();
+	Statement stmt2 = con.createStatement();
+	Statement stmt3 = con.createStatement();
+	String allegQuery = "SELECT count(*) as total from allegiances where allegiance = \"Martell\"";
+	String leaderQuery = "SELECT * from houses where name = \"Martell\"";
+	String membQuery = "SELECT count(*) as total from characters where surname = \"Martell\"";
+	ResultSet countAlleg = stmt.executeQuery(allegQuery);
+	countAlleg.next();
+	int totalAlleg = countAlleg.getInt("total");
+	countAlleg.close();
+	ResultSet countMemb = stmt2.executeQuery(membQuery);
+	countMemb.next();
+	int totalMemb = countMemb.getInt("total");
+	countMemb.close();
+	ResultSet leader = stmt3.executeQuery(leaderQuery);
+	leader.next();
+	String houseLead = leader.getString("leader");
+	leader.close();
+	out.print("<div class = \"font\">");
+	out.print("<h2>");
+	out.print("Leader of house: " + houseLead);
+	out.print("<br>");
+	out.print("Total characters alleged to this house: " + totalAlleg);
+	out.print("<br>");
+	out.print("Total members from this house: " + totalMemb);
+	out.print("</h2>");
+	out.print("</div>");
+	db.closeConnection(con); 
+}catch(Exception e)
+{
+	out.print(e);
+}
+	
+%>
+</div>
+
+<button class = "btn btn-primary btn-block" data-toggle="collapse" data-target="#demo9">House Targaryen</button>
+
+<div id="demo9" class="collapse">
+<p style="text-align:left;"><img src="targaryensigil.png" style="width:150px;height:150px;"></p>
+<%
+try {
+	
+	//Get the database connection
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();		
+	//Create a SQL statement
+	Statement stmt = con.createStatement();
+	Statement stmt2 = con.createStatement();
+	Statement stmt3 = con.createStatement();
+	String allegQuery = "SELECT count(*) as total from allegiances where allegiance = \"Targaryen\"";
+	String leaderQuery = "SELECT * from houses where name = \"Targaryen\"";
+	String membQuery = "SELECT count(*) as total from characters where surname = \"Targaryen\"";
+	ResultSet countAlleg = stmt.executeQuery(allegQuery);
+	countAlleg.next();
+	int totalAlleg = countAlleg.getInt("total");
+	countAlleg.close();
+	ResultSet countMemb = stmt2.executeQuery(membQuery);
+	countMemb.next();
+	int totalMemb = countMemb.getInt("total");
+	countMemb.close();
+	ResultSet leader = stmt3.executeQuery(leaderQuery);
+	leader.next();
+	String houseLead = leader.getString("leader");
+	leader.close();
+	out.print("<div class = \"font\">");
+	out.print("<h2>");
+	out.print("Leader of house: " + houseLead);
+	out.print("<br>");
+	out.print("Total characters alleged to this house: " + totalAlleg);
+	out.print("<br>");
+	out.print("Total members from this house: " + totalMemb);
+	out.print("</h2>");
+	out.print("</div>");
+	db.closeConnection(con); 
+}catch(Exception e)
+{
+	out.print(e);
+}
+	
+%>
+</div>
+
+<button class = "btn btn-primary btn-block" data-toggle="collapse" data-target="#demo10">House Tyrell</button>
+
+<div id="demo10" class="collapse">
+<p style="text-align:left;"><img src="tyrellsigil.png" style="width:150px;height:150px;"></p>
+<%
+try {
+	
+	//Get the database connection
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();		
+	//Create a SQL statement
+	Statement stmt = con.createStatement();
+	Statement stmt2 = con.createStatement();
+	Statement stmt3 = con.createStatement();
+	String allegQuery = "SELECT count(*) as total from allegiances where allegiance = \"Tyrell\"";
+	String leaderQuery = "SELECT * from houses where name = \"Tyrell\"";
+	String membQuery = "SELECT count(*) as total from characters where surname = \"Tyrell\"";
+	ResultSet countAlleg = stmt.executeQuery(allegQuery);
+	countAlleg.next();
+	int totalAlleg = countAlleg.getInt("total");
+	countAlleg.close();
+	ResultSet countMemb = stmt2.executeQuery(membQuery);
+	countMemb.next();
+	int totalMemb = countMemb.getInt("total");
+	countMemb.close();
+	ResultSet leader = stmt3.executeQuery(leaderQuery);
+	leader.next();
+	String houseLead = leader.getString("leader");
+	leader.close();
+	out.print("<div class = \"font\">");
+	out.print("<h2>");
+	out.print("Leader of house: " + houseLead);
+	out.print("<br>");
+	out.print("Total characters alleged to this house: " + totalAlleg);
+	out.print("<br>");
+	out.print("Total members from this house: " + totalMemb);
+	out.print("</h2>");
+	out.print("</div>");
+	db.closeConnection(con); 
+}catch(Exception e)
+{
+	out.print(e);
+}
+	
+%>
 </div>
 <div class = "space">
 <form method="post" action="show.jsp">

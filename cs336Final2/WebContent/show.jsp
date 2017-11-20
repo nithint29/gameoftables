@@ -8,13 +8,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'  type='text/css'>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<style>
+.font{
+font-family: 'Dosis', sans-serif;
+}
+.centerText{
+textAlign: center;
+}
+</style>
 <body>
 <div class="container">
-<h2><%
+<h1 class = "font"><%
 String header = request.getParameter("command");
 if (header.equals("characters"))
 {
@@ -24,7 +33,10 @@ else{
 	header = header + "s";
 }
 out.print(header);
-%></h2>
+%></h1>
+<p class = "font">Type something in the input field to search the table for first names, surnames, gender, or royaltyScale:</p>  
+  <input class="form-control" id="myInput" type="text" placeholder="Search..">
+  <br>
 	<%
 	    
 		try {
@@ -50,7 +62,7 @@ out.print(header);
 			
 			//Make an HTML table to show the results in:
 			out.print("<table class=\"table table-hover\">");
-			
+			out.print("<thead>");
 			//make a row
 			out.print("<tr>");
 			//make a column
@@ -73,6 +85,8 @@ out.print(header);
 			out.print("royaltyScale");
 			out.print("</td>");
 			out.print("</tr>");
+			out.print("</thead>");
+			out.print("<tbody id = \"myTable\">");
 			//parse out the results
 			while (result.next() && result !=null) {
 				//make a row
@@ -109,6 +123,7 @@ out.print(header);
 				out.print("</td>");
 				out.print("</tr>");
 			}
+			out.print("</tbody>");
 			out.print("</table>");
 
 			//close the connection.
@@ -118,5 +133,15 @@ out.print(header);
 		}
 	%>
 </div>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 </body>
 </html>
