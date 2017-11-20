@@ -37,7 +37,7 @@ font-family: 'Dosis', sans-serif;
 }
 .space{
  padding-bottom:120px;
-    padding-top:120px;
+    padding-top:90px;
 }
 .font{
 font-family: 'Dosis', sans-serif;
@@ -45,6 +45,17 @@ font-family: 'Dosis', sans-serif;
 .centerText{
 textAlign: center;
 }
+.about{
+padding-top:50px;
+}
+.imageRow{
+padding-bottom:50px;
+}
+.cboxes{
+paddig-top:50px;
+padding-left:550px;
+}
+
 </style>
 
 <body>
@@ -76,15 +87,19 @@ textAlign: center;
   <h4 class = "font">A Song of Entities and Relations</h4>
   <br>
   <br>
+  <br>
+  <br>
+  <br>
 </div>
-<div class = "hr" id="about" class="container-fluid text-center">
+<div class = "hr container-fluid text-center" id="about">
 <div class = "text-center">
-<h2 class = "font">ABOUT</h2>
+<h2 class = "font about">ABOUT</h2>
 </div>
 <div class = "space">
 <div class = "text-center">
-  <h4 class = "font">Our application provides a Game of Thrones fantasy league, where characters are ranked based on several attributes.</h4>
+  <h4 class = "font">Our website provides a Game of Thrones fantasy league, where characters are ranked based on several attributes.</h4>
   <h4 class = "font">Here are the various attributes we use to rank the characters.</h4>
+  <br>
   </div>
   <br>
   <div class="row">
@@ -128,27 +143,49 @@ textAlign: center;
 	The default method when submitting form data is GET.
 	However, when GET is used, the submitted form data will be visible in the page address field-->
 	<hr />
-<div class = "hr" id = "characters">
+<div class = "hr container-fluid text-center bg-chars" id = "characters">
 <div class = "text-center">
 <h2 class = "font">CHARACTERS</h2>
 </div>
 <div class = "space">
-<p style="text-align:center;"><img src="jonsnow.jpg"></p>
+<div class="row imageRow">
+ 	<div class="col-sm-4">
+		<img src="images/tyrion2.jpg" class="img-responsive img-circle" style="display:inline; width:220px; height:344px">
+	</div>
+	 <div class="col-sm-4">
+		<img src="images/jonsnow.jpg" class="img-responsive img-circle" style="display:inline; width:220px; height:344px">
+	</div>
+	<div class="col-sm-4">
+		<img src="images/dany.png" class="img-responsive img-circle" style="display:inline; width:220px; height:344px">
+	</div>
+</div>
 <FORM TYPE=POST ACTION=checkResult.jsp>
-<BR>
-Choose Filter for Characters: <br>
 
-<input TYPE=checkbox name=gender VALUE=male> Male <BR>
-<input TYPE=checkbox name=allegiance VALUE=stark> Stark <BR>
-<input TYPE=checkbox name=royalty VALUE=royal> Royal>8 <BR>
-<input TYPE=checkbox name=kill VALUE=killer> Kills>2 <BR>
-<br> <INPUT TYPE=submit name=submit Value="Submit">
+<p>Choose Filter for Characters: </p>
+
+<div class="row text-center container-fluid cboxes">
+	<div class="col-sm-1">
+		<input TYPE=checkbox name=gender VALUE=male style="display:inline"> Male <BR>
+	</div>
+	<div class="col-sm-1">
+		<input TYPE=checkbox name=allegiance VALUE=stark style="display:inline"> Stark <BR>
+	</div>
+	<div class="col-sm-1">
+		<input TYPE=checkbox name=royalty VALUE=royal style="display:inline"> Royal>8 <BR>
+	</div>
+	<div class="col-sm-1">
+		<input TYPE=checkbox name=kill VALUE=killer style="display:inline"> Kills>2 <BR>
+	</div>
+</div>
+<br>
+<p><INPUT TYPE=submit name=submit Value="Submit"></p>
 </FORM>
-<form style="text-align:center;" method="post" action="show.jsp">
-<button type="submit" name="command" value="characters" class="btn btn-success">
+
+<form style="text-align:center;" method="get" action="show.jsp">
+	<button type="submit" name="command" value="characters" class="btn btn-success">
         View All Characters
     </button>
-    </form>
+</form>
  
     </div>
 </div>

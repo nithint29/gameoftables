@@ -51,7 +51,7 @@ out.print(header);
 			String str = "";
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
 			if (entity.equals("characters")){
-			str = "SELECT charID,name,surname,gender,royaltyscale FROM " + entity;
+			str = "SELECT charID,name,surname,gender,royaltyscale FROM " + entity ;
 			}
 			else
 			{
