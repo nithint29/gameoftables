@@ -45,7 +45,7 @@ select * from houses order by wealth desc;
 
 select killerID,killerSurname,count(*) from kills group by killerID ORDER BY COUNT(*) DESC;
 
-select * from kills where victimSurname like "Lannister";
+select * from kills where killerID = "0004";
 
 #select * from allegiances where surname like 'Tyrell' and surname<>allegiance;
 #select char_length(allegiance),allegiance from allegiances where allegiance not like 'Tyrell%' and surname like 'Tyrell';

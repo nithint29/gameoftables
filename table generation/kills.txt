@@ -2498,4 +2498,4 @@ killerID,killerName,killerSurname,victimID,victimName,victimSurname
 1167,Severin,Targaryen,0126,Emma,Becker
 1167,Severin,Targaryen,4518,Jaap van den,Heuvel
 1167,Severin,Targaryen,1172,Victor,Afrom
-1167,Severin,Targaryen,3170,Veikko,Makela
+1167,Severin,Targaryen,3170,Veikko,Makela
