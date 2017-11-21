@@ -35,6 +35,41 @@ textAlign: center;
 padding-bottom:50px;
     padding-top:50px;  
 }
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
 </style>
 
 <body>
@@ -62,9 +97,24 @@ padding-bottom:50px;
             <label class="checkbox-inline"><input type="checkbox" name="house" value="Greyjoy"/>Greyjoy</label>
             <label class="checkbox-inline"><input type="checkbox" name="house" value="Frey"/>Frey</label>
          </div>
+         
+         <div id="slider" style="padding-top:0px">
+         	<h3>Minimum Kills</h3>
+  			<input class="slider" type="range" id="rangeinput" name="kills" value="0" onchange="rangevalue.value=value" />
+  			<span class="highlight"></span>
+  			<output id="rangevalue">50</output>
+		 </div>
+		 
+		 <div>
+            <h3>Character Status</h3>
+            <label class="checkbox-inline"><input type="checkbox" name="alive" value="true"/>Alive</label>
+            <label class="checkbox-inline"><input type="checkbox" name="dead" value="true"/>Dead</label>
+            <label class="checkbox-inline"><input type="checkbox" name="traitor" value="true"/>Traitor</label>
+         </div>
+		 
          <div class = "text-center space">
             <button type="submit" class="btn btn-success">Submit</button>
-            </div>
+         </div>
         </form>
 	</div>
 </div>
@@ -84,12 +134,23 @@ padding-bottom:50px;
 			String str = "SELECT charID,name,surname,gender,royaltyscale FROM characters where TRUE ";
 			String entity = request.getParameter("command");
 			String[] houses = request.getParameterValues("house");
+			String sKills = request.getParameter("kills");
+			int kills=0;
+			if(sKills !=null){
+				kills += Integer.parseInt(sKills);
+			}
+			String alive = request.getParameter("alive");
+			String dead = request.getParameter("dead");
+			String traitor = request.getParameter("traitor");
+			
+			
+			String houseString = "('Stark','Targaryen','Lannister','Tyrell','Martell','Bolton','Baratheon','Arryn','Greyjoy','Frey')";
 			
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
 			if (entity != null && entity.equals("characters")){
-			str = "SELECT charID,name,surname,gender,royaltyscale FROM " + entity + " LIMIT 500";
+				str = "SELECT charID,name,surname,gender,royaltyscale FROM characters LIMIT 500";
 			}
-			else if(houses.length >=0)
+			if(houses != null && houses.length >=0)
 			{
 				String houseFilter = "AND (surname in (";
 				for(String s:houses)
@@ -100,6 +161,22 @@ padding-bottom:50px;
 				houseFilter+= ")) ";
 				
 				str += houseFilter;
+			}
+			if(alive != null)
+			{
+				str += " AND (not exists(select * from kills where victimID = charID)) ";
+			}
+			if(dead != null)
+			{
+				str += " AND (exists(select * from kills where victimID = charID)) ";
+			}
+			if(traitor != null)
+			{
+				str += " AND (charID in (select charID from allegiances where allegiances.surname <> allegiance and surname in "+ houseString+")) ";
+			}
+			if( kills > 0)
+			{
+				str +=" AND (charID in (select killerID from kills group by killerID having count(*) > "+kills+ ")) ";
 			}
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);

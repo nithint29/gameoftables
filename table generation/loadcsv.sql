@@ -6,12 +6,14 @@ FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES;
 
-LOAD DATA LOCAL INFILE 'C:/Users/basis_000/OneDrive/school/rutgers/Senior fall/Databases/project/gameoftables/table generation/allegiances.txt'
+LOAD DATA LOCAL INFILE 'C:/Users/basis_000/OneDrive/school/rutgers/Senior fall/Databases/project/gameoftables/table generation/allegiances2.txt'
 INTO TABLE allegiances
 FIELDS TERMINATED BY ',' 
 OPTIONALLY ENCLOSED BY '"'
-LINES TERMINATED BY '\r'
-IGNORE 1 LINES;
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(charID, name,surname, @var)
+SET allegiance = TRIM(TRAILING '\r' FROM @var);
 
 LOAD DATA LOCAL INFILE 'C:/Users/basis_000/OneDrive/school/rutgers/Senior fall/Databases/project/gameoftables/table generation/romances.txt'
 INTO TABLE romances

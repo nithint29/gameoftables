@@ -10,11 +10,20 @@ select * from houses order by wealth desc;
 select killerID,killerSurname,count(*) from kills group by killerID ORDER BY COUNT(*) DESC;
 
 select * from kills where killerID = 4;
+
 SELECT charID,name,surname,gender,royaltyscale FROM characters where (surname in ('Stark','Lannister')) 
-and exists(select * from kills where victimID = charID);
+and not exists(select * from kills where victimID = charID);
+
+select * from allegiances;
+
+select * from allegiances where surname not like allegiance and surname in 
+('Stark','Targaryen','Lannister','Tyrell','Martell','Bolton','Baratheon','Arryn','Greyjoy','Frey') limit 10000;
 
 select * from kills where victimID = 0007;
 select * from characters where charID in (select victimID from kills) limit 5000;
+
+
+select killerID,killerSurname,count(*) from kills group by killerID having count(*) > 5 ORDER BY count(*) DESC;
 
 #best at combat:
 

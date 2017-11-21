@@ -82,6 +82,8 @@ def createAllegianceTable(characters, filename="allegiances.txt"):
     columns = ['charID', 'name','surname','allegiance']
     csvwriter.writerow(columns)
 
+    testd = []
+
     for k in range(0, len(data)):
         #add allegiance
         traitor_roll = random.randint(1,50)
@@ -96,8 +98,8 @@ def createAllegianceTable(characters, filename="allegiances.txt"):
             data[k]['allegiance'] = np.random.choice(houses[0:-1], 1, p=p[0:-1]/np.sum(p[0:-1]))[0]
 
         curr = data[k]
-        csvwriter.writerow(
-            [curr['charID'], curr['name'], curr['surname'], curr['allegiance']])
+        # csvwriter.writerow([curr['charID'], curr['name'], curr['surname'], curr['allegiance']])
+    writeTable(data,['charID','name','surname','allegiance'],"allegiances2.txt")
     table.close()
     return data
 
@@ -284,10 +286,10 @@ if(__name__ == '__main__'):
     print(rawdata)
     #
     # chars = createCharactersTable(rawdata)
-    # # chars = readFromText('characters.txt')
-    # allies = createAllegianceTable(chars)
-    # roms = createRomances(chars)
-    # kills = createKills(allies)
+    chars = readFromText('characters.txt')
+    allies = createAllegianceTable(chars)
+    roms = createRomances(chars)
+    kills = createKills(allies)
 
     # writeTable(roms, ['charID1', 'charID2'], 'new.txt')
 
