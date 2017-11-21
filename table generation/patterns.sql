@@ -25,6 +25,12 @@ select * from characters where charID in (select victimID from kills) limit 5000
 
 select killerID,killerSurname,count(*) from kills group by killerID having count(*) > 5 ORDER BY count(*) DESC;
 
+select charID1 from romances where surname1=surname2;
+select charID2 from romances where surname1=surname2;
+select charID1 from romances group by charID1 having count(*) >4;
+SELECT * FROM characters where (characters.charID in (select charID1 from romances group by charID1 having count(*) >= 1));
+select charID1 from romances group by charID1 having count(*) >= 4;
+select * from romances;
 #best at combat:
 
 #select * from allegiances where surname like 'Tyrell' and surname<>allegiance;

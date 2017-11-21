@@ -159,33 +159,10 @@ padding-left:550px;
 		<img src="images/dany3.PNG" class="img-responsive img-circle" style="display:inline; width:220px; height:344px">
 	</div>
 </div>
-<FORM TYPE=POST ACTION=checkResult.jsp>
 
-<p>Choose Filter for Characters: </p>
-
-<div class="row text-center container-fluid cboxes">
-	<div class="col-sm-1">
-		<input TYPE=checkbox name=gender VALUE=male style="display:inline"> Male <BR>
-	</div>
-	<div class="col-sm-1">
-		<input TYPE=checkbox name=allegiance VALUE=stark style="display:inline"> Stark <BR>
-	</div>
-	<div class="col-sm-1">
-		<input TYPE=checkbox name=royalty VALUE=royal style="display:inline"> Royal>8 <BR>
-	</div>
-	<div class="col-sm-1">
-		<input TYPE=checkbox name=royalty VALUE=killer style="display:inline"> Kills>2 <BR>
-	</div>
-</div>
+<p>Explore the characters of Westeros </p>
 <br>
-<p><INPUT TYPE=submit name=submit Value="Submit"></p>
-</FORM>
-<form name="input" action="checkResult.jsp" method="get">
-<input type="checkbox" name="vehicle" value="Bike">I have a bike<br>
-<input type="checkbox" name="vehicle" value="Car">I have a car 
-<br><br>
-<input type="submit" value="Submit">
-</form>
+<br>
 
 <form style="text-align:center;" method="get" action="show.jsp">
 	<button type="submit" name="command" value="characters" class="btn btn-success">

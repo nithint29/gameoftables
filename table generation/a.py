@@ -286,11 +286,15 @@ if(__name__ == '__main__'):
     print(rawdata)
     #
     # chars = createCharactersTable(rawdata)
-    chars = readFromText('characters.txt')
-    allies = createAllegianceTable(chars)
-    roms = createRomances(chars)
-    kills = createKills(allies)
+    # chars = readFromText('characters.txt')
+    # allies = createAllegianceTable(chars)
+    # roms = createRomances(chars)
+    # kills = createKills(allies)
 
+
+    # fixRom = readFromText('romances.txt')
+    # writeTable(fixRom, ['charID1','name1','surname1','charID2','name2','surname2'],"romances1.txt")
+    # writeTable(fixRom, ['charID2', 'name2', 'surname2', 'charID1', 'name1', 'surname1'], "romances2.txt")
     # writeTable(roms, ['charID1', 'charID2'], 'new.txt')
 
 
