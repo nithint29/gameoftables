@@ -79,16 +79,27 @@ padding-bottom:50px;
 			Connection con = db.getConnection();		
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
+			
 			//Get the selected radio button from the index.jsp
+			String str = "SELECT charID,name,surname,gender,royaltyscale FROM characters where TRUE ";
 			String entity = request.getParameter("command");
-			String str = "";
+			String[] houses = request.getParameterValues("house");
+			
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-			if (entity.equals("characters")){
+			if (entity != null && entity.equals("characters")){
 			str = "SELECT charID,name,surname,gender,royaltyscale FROM " + entity + " LIMIT 500";
 			}
-			else
+			else if(houses.length >=0)
 			{
-				str = "SELECT charID,name,surname,gender,royaltyscale FROM characters";
+				String houseFilter = "AND (surname in (";
+				for(String s:houses)
+				{
+					houseFilter += "'"+s+"',";
+				}
+				houseFilter = houseFilter.substring(0, houseFilter.length()-1);
+				houseFilter+= ")) ";
+				
+				str += houseFilter;
 			}
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
@@ -107,10 +118,8 @@ padding-bottom:50px;
 			//make a column
 			out.print("<td>");
 			//depending on the radio button selection make a column header for Manufacturer if the beers table was selected and Address if the bars table was selected
-			if (entity.equals("beers"))
-				out.print("manf");
-			else
-				out.print("surname");
+
+			out.print("surname");
 			out.print("</td>");
 			out.print("<td>");
 			out.print("gender");
