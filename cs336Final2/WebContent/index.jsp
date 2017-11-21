@@ -156,7 +156,7 @@ padding-left:550px;
 		<img src="images/jonsnow.jpg" class="img-responsive img-circle" style="display:inline; width:220px; height:344px">
 	</div>
 	<div class="col-sm-4">
-		<img src="images/dany.png" class="img-responsive img-circle" style="display:inline; width:220px; height:344px">
+		<img src="images/dany3.PNG" class="img-responsive img-circle" style="display:inline; width:220px; height:344px">
 	</div>
 </div>
 <FORM TYPE=POST ACTION=checkResult.jsp>
@@ -174,12 +174,18 @@ padding-left:550px;
 		<input TYPE=checkbox name=royalty VALUE=royal style="display:inline"> Royal>8 <BR>
 	</div>
 	<div class="col-sm-1">
-		<input TYPE=checkbox name=kill VALUE=killer style="display:inline"> Kills>2 <BR>
+		<input TYPE=checkbox name=royalty VALUE=killer style="display:inline"> Kills>2 <BR>
 	</div>
 </div>
 <br>
 <p><INPUT TYPE=submit name=submit Value="Submit"></p>
 </FORM>
+<form name="input" action="checkResult.jsp" method="get">
+<input type="checkbox" name="vehicle" value="Bike">I have a bike<br>
+<input type="checkbox" name="vehicle" value="Car">I have a car 
+<br><br>
+<input type="submit" value="Submit">
+</form>
 
 <form style="text-align:center;" method="get" action="show.jsp">
 	<button type="submit" name="command" value="characters" class="btn btn-success">
@@ -197,8 +203,8 @@ padding-left:550px;
 </div>
 <button class = "btn btn-primary btn-block" data-toggle="collapse" data-target="#demo">House Stark</button>
 
-<div id="demo" class="collapse">
-<p style="text-align:left;"><img src="starksigil.png" style="width:150px;height:150px;"></p>
+<div id="demo" class="collapse text-center">
+<p style="text-align:center;"><img src="starksigil.png" style="width:150px;height:150px;"></p>
 <%
 try {
 	
@@ -524,7 +530,7 @@ try {
 %>
 </div>
 
-<button class = "btn btn-primary btn-block" data-toggle="collapse" data-target="#demo8">House Martell</button>
+<button class = "btn btn-primary btn-block" >House Martell</button>
 
 <div id="demo8" class="collapse">
 <p style="text-align:left;"><img src="martellsigil.png" style="width:150px;height:150px;"></p>

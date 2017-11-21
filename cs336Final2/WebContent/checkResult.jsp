@@ -26,6 +26,7 @@ textAlign: center;
 	String gender = request.getParameter("gender");
 	String allegiance = request.getParameter("allegiance");
 	String royalty = request.getParameter("royalty");
+	String[] v = request.getParameterValues("vehicle");
 	String kill = request.getParameter("kill");
 	out.print(gender);
 	out.print(allegiance);
