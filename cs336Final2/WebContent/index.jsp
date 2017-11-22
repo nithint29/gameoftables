@@ -197,7 +197,7 @@ padding-left:550px;
     
 <div class = "hr" id="fantasy">
 <div class = "text-center">
-<h2 class = "font">FANTASY RANKS</h2>
+<h2 class = "font">FANTASY RANKS TOP 7</h2>
 </div>
 <br>
 <div class = "space">
@@ -256,10 +256,13 @@ catch(Exception e)
 }
 %>
 </div>
+<form style="text-align:center;" method="get" action="fantasy.jsp">
 <button type="submit" name="command" value="houses" class="btn btn-success">
-        View All Houses
+       View All Characters for Fantasy Rank
     </button>
+    </form>
 </div>
+
 </div>
 
 <div class = "hr" id = "map">
