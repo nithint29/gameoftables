@@ -33,6 +33,10 @@ select charID1 from romances group by charID1 having count(*) >= 4;
 select * from romances;
 
 SELECT count(*),killerName from kills group by killerID  order by count(*) DESC limit 5000;
+
+select * from charlocations where surname = 'Stark';
+select * from locations;
+
 #put in main chars
 #map
 #game or login

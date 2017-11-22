@@ -13,3 +13,4 @@ Harrenhal,400,800,Bolton
 Winterfell,368,335,Stark
 Bear Island,228,187,Stark
 The Twins,330,627,Frey
+Eyrie,520,680,Arryn

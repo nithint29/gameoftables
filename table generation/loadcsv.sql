@@ -37,3 +37,21 @@ FIELDS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES;
+
+LOAD DATA LOCAL INFILE 'C:/Users/basis_000/OneDrive/school/rutgers/Senior fall/Databases/project/gameoftables/table generation/charlocations.txt'
+INTO TABLE charlocations
+FIELDS TERMINATED BY ',' 
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(charID,xcoord,ycoord,name,@var)
+SET surname = TRIM(TRAILING '\r' FROM @var);
+
+LOAD DATA LOCAL INFILE 'C:/Users/basis_000/OneDrive/school/rutgers/Senior fall/Databases/project/gameoftables/table generation/locations.txt'
+INTO TABLE locations
+FIELDS TERMINATED BY ',' 
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(name,xcoord,ycoord,@var)
+SET house = TRIM(TRAILING '\r' FROM @var);

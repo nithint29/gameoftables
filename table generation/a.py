@@ -240,7 +240,52 @@ def createKills(allegiance, filename = 'kills.txt'):
 
     return kills
 
-#reads a table from text file as a dict
+def charLocations(filename, locdict, characters,idDict):
+    locs = ['Highgarden','Casterly Rock','Dragonstone','Riverrun','Kingslanding',
+            'Storms End','Sunspear','Dorne','Pyke','Pentos','Harrenhal','Winterfell',
+            'Bear Island','The Twins','Eyrie']
+    size=len(locs)
+    ans=[]
+    for c in characters:
+        found = False
+
+        # if(c['surname'] not in houses):
+        #     c['surname'] = idDict[c['charID']]
+        #
+        for i in range(12):
+            if(found != True):
+                r = random.randint(0, size - 1)
+                loc = locs[r]
+                xOffset = int(np.random.normal(0,20))
+                yOffset = int(np.random.normal(0,23))
+
+                if(idDict[c['charID']] == locdict[loc]['house']):
+                    d = {}
+                    d['charID'] = c['charID']
+                    d['xcoord'] = int(locdict[loc]['xcoord']) + xOffset
+                    d['ycoord'] = int(locdict[loc]['ycoord']) + yOffset
+                    d['name'] = c['name']
+                    d['surname'] = c['surname']
+                    ans.append(d)
+                    found=True
+                # else:
+                #     offRoll = random.randint(1,100)
+                #     if(offRoll >=85):
+
+        if(found == False):
+            randx = random.randint(100,650)
+            randy = random.randint(100,1280)
+            d = {}
+            d['charID'] = c['charID']
+            d['xcoord'] = randx
+            d['ycoord'] = randy
+            d['name'] = c['name']
+            d['surname'] = c['surname']
+            ans.append(d)
+
+    writeTable(ans,['charID','xcoord','ycoord','name','surname'],filename)
+
+#reads a table from text file as an array of dicts
 def readFromText(filename):
     file = open(filename, 'r')
     lines = file.readlines()
@@ -279,17 +324,33 @@ def writeTable(data, titles, filename):
 
 
 if(__name__ == '__main__'):
+    print('hi')
     # rawdata = pullData(1)
     # pickle.dump(rawdata, open('rawdata.pkl', 'wb'))
 
-    rawdata = pickle.load(open('rawdata.pkl','rb'))
-    print(rawdata)
+    # rawdata = pickle.load(open('rawdata.pkl','rb'))
+    # print(rawdata)
     #
     # chars = createCharactersTable(rawdata)
     # chars = readFromText('characters.txt')
     # allies = createAllegianceTable(chars)
     # roms = createRomances(chars)
     # kills = createKills(allies)
+
+
+    locations = readFromText('locations.txt')
+    characters = readFromText('characters.txt')
+    allegiances = readFromText('allegiances2.txt')
+    idDict ={}
+    for i in allegiances:
+        idDict[i['charID']] = i['allegiance']
+    print(idDict)
+
+    locdict = {}
+    for i in locations:
+        locdict[i['name']] = {'xcoord':i['xcoord'],'ycoord':i['ycoord'],'house':i['house']}
+    print(locdict)
+    charLocations('charlocations.txt',locdict,characters,idDict)
 
 
     # fixRom = readFromText('romances.txt')

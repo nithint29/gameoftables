@@ -81,23 +81,23 @@ paddig-bottom:20px;
 
     graphics2D.setPaint ( Color.red);
 	
-	String str = "SELECT charID,name,surname,gender,royaltyscale FROM characters LIMIT 500";
+	String str = "SELECT charID,xcoord,ycoord,name,surname FROM charlocations LIMIT 1000";
 	ResultSet result = stmt.executeQuery(str);
 	
 	while (result.next() && result !=null) {
-		String n = result.getString("royaltyscale");
-		int val = Integer.parseInt(n);
-		graphics2D.drawOval ( val*50, 320, 7, 7 );
+		String xs = result.getString("xcoord");
+		int x = Integer.parseInt(xs);
+		String ys = result.getString("ycoord");
+		int y = Integer.parseInt(ys);
+		
+		graphics2D.drawOval ( x, y, 7, 7 );
 		
 	}
 	
-    graphics2D.drawOval ( 160, 320, 10, 10 );
-    graphics2D.drawOval(50, 50, 10, 10);
-    graphics2D.drawOval(800, 550, 10, 10);
+//    graphics2D.drawOval ( 160, 320, 10, 10 );
     graphics2D.dispose ();
 
-    
-    
+  
     
     ImageIO.write ( image, "jpg", baos);
     baos.flush();

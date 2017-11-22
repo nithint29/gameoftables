@@ -61,6 +61,28 @@ wealth int,
 constraint pk_ally primary key (name)
 );
 
+drop table if exists charlocations;
+create table if not exists charlocations(
+charID varchar(5),
+xcoord int,
+ycoord int,
+name varchar(50),
+surname varchar(50),
+
+constraint pk_ally primary key (charID)
+);
+
+
+drop table if exists locations;
+create table if not exists locations(
+name varchar(50),
+xcoord int,
+ycoord int,
+house varchar(50),
+
+constraint pk_ally primary key (name)
+);
+
 
 
 select name from characters limit 5006;
