@@ -55,6 +55,13 @@ padding-bottom:50px;
 paddig-top:50px;
 padding-left:550px;
 }
+.background { 
+background: url(images/houses.jpg) no-repeat center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
 
 </style>
 
@@ -175,12 +182,17 @@ padding-left:550px;
 </div>
 <br>
 
-<div class = "hr" id = "houses">	
+
+
+<div class = "hr container-fluid text-center" id = "houses">	
 <div class = "text-center">
 <h2 class = "font">HOUSES</h2>
 </div>
-<div class = "space">
-<p style="text-align:center;"><img src="houses.jpg"></p>
+<div style="padding-top:40px;padding-bottom:70px">
+
+<div class="row imageRow ">
+		<img src="images/houses.jpg" class="img-responsive crop" style="display:inline; height:400px">
+</div>
 
 <div class = "font">
 <p class = "text-center"> Explore the various houses of Westeros </p>
@@ -194,6 +206,8 @@ padding-left:550px;
 </div>
     <br>
     <br>
+    
+    
     
 <div class = "hr" id="fantasy">
 <div class = "text-center">
@@ -266,39 +280,29 @@ catch(Exception e)
 </div>
 
 <div class = "hr" id = "map">
-<div class = "text-center">
-<h2 class = "font">MAP</h2>
-</div>
+	<div class = "text-center">
+		<h2 class = "font">MAP</h2>
+	</div>
 <br>
-<div class = "space">
-	<form method="post" action="newBeer.jsp">
-	<table>
-	<tr>    
-	<td>Bar</td><td><input type="text" name="bar"></td>
-	</tr>
-	<tr>
-	<td>Beer</td><td><input type="text" name="beer"></td>
-	</tr>
-	<tr>
-	<td>Price</td><td><input type="text" name="price"></td>
-	</tr>
-	</table>
-	<br>
-	<input type="submit" value="submit">
-	</form>
-<br>
+	<div class = "space text-center">
+	
+	  <div class="row imageRow ">
+		<img src="images/gotland.png" class="img-responsive crop" style="display:inline; height:250px">
+	  </div>
+	  
+	  
+	  <div class = "font">
+		<p class = "text-center"> Learn about the world through a dynamically generated map. </p>
+	  </div>
+	  <form style="text-align:center;" method="get" action="map.jsp">
+		<button type="submit" name="limit" value="1000" class="btn btn-success">
+	        Explore the Continent
+	    </button>
+	  </form>
+	
 
-Or we can query the beers with price:
-<br>
-	<form method="post" action="query.jsp">
-		<select name="price" size=1>
-			<option value="3.0">$3.0 and under</option>
-			<option value="5.0">$5.0 and under</option>
-			<option value="8.0">$8.0 and under</option>
-		</select>&nbsp;<br> <input type="submit" value="submit">
-	</form>
 	</div>
-	</div>
+</div>
 <br>
 <script>
 $(document).ready(function(){

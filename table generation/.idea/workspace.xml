@@ -27,7 +27,7 @@
       <file leaf-file-name="a.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/a.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
+            <state relative-caret-position="1345">
               <caret line="256" column="47" lean-forward="true" selection-start-line="256" selection-start-column="47" selection-end-line="256" selection-end-column="47" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
@@ -238,7 +238,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2489019" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -505,7 +505,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/a.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
+        <state relative-caret-position="1345">
           <caret line="256" column="47" lean-forward="true" selection-start-line="256" selection-start-column="47" selection-end-line="256" selection-end-column="47" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />

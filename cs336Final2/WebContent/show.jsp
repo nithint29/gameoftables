@@ -97,6 +97,20 @@ padding-bottom:50px;
             <label class="checkbox-inline"><input type="checkbox" name="house" value="Frey"/>Frey</label>
          </div>
          
+         <div>
+            <h3>Select Allegiances</h3>
+            <label class="checkbox-inline"><input type="checkbox" name="allegiance" value="Stark"/>Stark</label>
+            <label class="checkbox-inline"><input type="checkbox" name="allegiance" value="Targaryen"/>Targaryen</label>
+            <label class="checkbox-inline"><input type="checkbox" name="allegiance" value="Lannister"/>Lannister</label>
+            <label class="checkbox-inline"><input type="checkbox" name="allegiance" value="Tyrell"/>Tyrell</label>
+            <label class="checkbox-inline"><input type="checkbox" name="allegiance" value="Martell"/>Martell</label>
+            <label class="checkbox-inline"><input type="checkbox" name="allegiance" value="Bolton"/>Bolton</label>
+            <label class="checkbox-inline"><input type="checkbox" name="allegiance" value="Baratheon"/>Baratheon</label>
+            <label class="checkbox-inline"><input type="checkbox" name="allegiance" value="Arryn"/>Arryn</label>
+            <label class="checkbox-inline"><input type="checkbox" name="allegiance" value="Greyjoy"/>Greyjoy</label>
+            <label class="checkbox-inline"><input type="checkbox" name="allegiance" value="Frey"/>Frey</label>
+         </div>
+         
          <div id="slider" style="padding-top:0px">
          	<h3>Minimum Kills</h3>
   			<input class="slider" type="range" id="rangeinput" name="kills" value="0" onchange="rangevalue.value=value" />
@@ -130,14 +144,10 @@ padding-bottom:50px;
 			  <label for="sel1" style="padding-left:10px">Kills:</label>
 			  <select class="form-control-inline" id="sel1" name="killOrder">
 			    <option>None</option>
-			    <option>ASC</option>
-			    <option>DESC</option>
 			  </select>
 			  <label for="sel1" style="padding-left:10px">Romances:</label>
 			  <select class="form-control-inline" id="sel1" name="romanceOrder">
 			  	<option>None</option>
-			    <option>ASC</option>
-			    <option>DESC</option>
 			  </select>
 			</div>
          </div>
@@ -161,9 +171,10 @@ padding-bottom:50px;
 			Statement stmt = con.createStatement();
 			
 			//Get the selected radio button from the index.jsp
-			String str = "SELECT charID,name,surname,gender,royaltyscale FROM characters where TRUE ";
+			String str = "SELECT characters.charID,characters.name,characters.surname,characters.gender,characters.royaltyscale,allegiances.allegiance FROM characters INNER JOIN allegiances ON allegiances.charID=characters.charID   where TRUE ";
 			String entity = request.getParameter("command");
 			String[] houses = request.getParameterValues("house");
+			String[] allegiances = request.getParameterValues("allegiance");
 			String sKills = request.getParameter("kills");
 			int kills=0;
 			if(sKills !=null){
@@ -190,7 +201,7 @@ padding-bottom:50px;
 			}
 			if(houses != null && houses.length >=0)
 			{
-				String houseFilter = "AND (surname in (";
+				String houseFilter = "AND (characters.surname in (";
 				for(String s:houses)
 				{
 					houseFilter += "'"+s+"',";
@@ -200,29 +211,41 @@ padding-bottom:50px;
 				
 				str += houseFilter;
 			}
+			if(allegiances != null && allegiances.length >=0)
+			{
+				String allegianceFilter = "AND (allegiances.allegiance in (";
+				for(String s:allegiances)
+				{
+					allegianceFilter += "'"+s+"',";
+				}
+				allegianceFilter = allegianceFilter.substring(0, allegianceFilter.length()-1);
+				allegianceFilter+= ")) ";
+				
+				str += allegianceFilter;
+			}
 			if(alive != null)
 			{
-				str += " AND (not exists(select * from kills where victimID = charID)) ";
+				str += " AND (not exists(select * from kills where victimID = characters.charID)) ";
 			}
 			if(dead != null)
 			{
-				str += " AND (exists(select * from kills where victimID = charID)) ";
+				str += " AND (exists(select * from kills where victimID = characters.charID)) ";
 			}
 			if(traitor != null)
 			{
-				str += " AND (charID in (select charID from allegiances where allegiances.surname <> allegiance and surname in "+ houseString+")) ";
+				str += " AND (characters.charID in (select charID from allegiances where allegiances.surname <> allegiance and characters.surname in "+ houseString+")) ";
 			}
 			if(weirdo != null)
 			{
-				str += " AND (charID in (select charID1 from romances where surname1=surname2) or charID in (select charID2 from romances where surname1=surname2)) ";
+				str += " AND (characters.charID in (select charID1 from romances where surname1=surname2) or characters.charID in (select charID2 from romances where surname1=surname2)) ";
 			}
 			if( kills > 0)
 			{
-				str +=" AND (charID in (select killerID from kills group by killerID having count(*) >= "+kills+ ")) ";
+				str +=" AND (characters.charID in (select killerID from kills group by killerID having count(*) >= "+kills+ ")) ";
 			}
 			if( roms > 0)
 			{
-				str +=" AND (charID in (select charID1 from romances group by charID1 having count(*) >= "+roms+ ")) ";
+				str +=" AND (characters.charID in (select charID1 from romances group by charID1 having count(*) >= "+roms+ ")) ";
 			}
 			if( royalOrder!= null && !royalOrder.equals("None"))
 			{
