@@ -105,7 +105,8 @@ background-size: cover;
 </div>
 <div class = "space">
 <div class = "text-center">
-  <h4 class = "font">Our website provides a Game of Thrones fantasy league, where characters are ranked based on several attributes.</h4>
+  <h4 class = "font">This website keeps track of all the complex relationships in the world of Game of Thrones.</h4>
+  <h4 class = "font"> Our website also provides a Game of Thrones fantasy league, where characters are ranked and sorted based on several attributes.</h4>
   <h4 class = "font">Here are the various attributes we use to rank the characters.</h4>
   <br>
   </div>

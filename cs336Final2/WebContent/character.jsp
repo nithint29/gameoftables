@@ -25,6 +25,8 @@ textAlign: center;
 <body>
 <div class="container">
 <% 
+String id = "";
+String name = "";
 try
 {
 			//Get the database connection
@@ -34,8 +36,9 @@ try
 			Statement stmt = con.createStatement();
 			Statement stmt2 = con.createStatement();
 			Statement stmt3 = con.createStatement();
-			String id = request.getParameter("id");
-			String romances = "SELECT name1,surname1,name2,surname2 from romances where charID1 =" + id;
+			 id = request.getParameter("id");
+			 out.print(id);
+			String romances = "SELECT name1,surname1,name2,surname2 from romances where charID1 = " + id;
 			String totalRom = "SELECT count(*) as total from romances where charID1 =" + id;
 			String kills = "SELECT * from kills where killerID = " + id;
 			String totalKills = "SELECT count(*) as total from kills where killerID = " + id;
@@ -54,7 +57,7 @@ try
 			myCount.close();
 			ResultSet result = stmt.executeQuery(romances);
 			ResultSet victims = stmt2.executeQuery(kills);
-			String name =request.getParameter("name");
+			 name =request.getParameter("name");
 			out.print("<h1 class = \"text-center font\">");
 			out.print(name);
 			out.print("</h1>");
@@ -62,6 +65,9 @@ try
 			out.print("<h2 class = \"font\">");
 			out.print("Alleged House: " + all);
 			out.print("</h2>");
+			out.print("<h3 class = \"font\">");
+			out.print("ID: " + id);
+			out.print("</h3>");
 			out.print("<br>");
 			out.print("<h2 class = \"font\">");
 			out.print("Romances");
@@ -115,6 +121,10 @@ try
 			//print out column header
 			out.print("Victim Surname");
 			out.print("</td>");
+			out.print("<td>");
+			//print out column header
+			out.print("Victim ID");
+			out.print("</td>");
 			out.print("</tr>");
 			while (victims.next() && victims !=null) {
 				//make a row
@@ -124,6 +134,9 @@ try
 				out.print("</td>");
 				out.print("<td>");
 				out.print(victims.getString("victimSurname"));
+				out.print("</td>");
+				out.print("<td>");
+				out.print(victims.getString("victimID"));
 				out.print("</td>");
 				out.print("</tr>");
 			}
@@ -138,5 +151,27 @@ try
 	}
 		%>
 </div>
+
+<br>
+<br>
+<br>
+<div >
+
+<form action="change.jsp">
+<label for="usr">Character ID:</label>
+<input type="hidden" name="name" value=<%=name%>/>
+<input type="hidden" name="id" value=<%=id%>/>
+<p>old victim:</p>
+<input type="text" class="form-control" id="usr" name="kill">
+<p>new victim:</p>
+<input type="text" class="form-control" id="usr" name="new">
+<input type="submit" value="Change Kill"/>
+</form>
+
+</div>
+
+<div >
+</div>
+
 </body>
 </html>

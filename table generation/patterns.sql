@@ -37,6 +37,11 @@ SELECT count(*),killerName from kills group by killerID  order by count(*) DESC 
 select * from charlocations where surname = 'Stark';
 select * from locations;
 
+
+UPDATE characters set name='bububub' where charID=5;
+
+select * from characters;
+
 #put in main chars
 #map
 #game or login

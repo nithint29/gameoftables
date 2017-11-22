@@ -95,62 +95,6 @@ padding-bottom:50px;
 <button type="submit" class="btn btn-success">Submit</button>
 </form>
 <br>
-<div class="filterBar">
-	<button class = "btn btn-primary btn-block bc" data-toggle="collapse" data-target="#filter">Filters</button>
-	<div id="filter" class="collapse">
-	   <form name="form1" method="get" action="house.jsp">
-         
-         <div id="slider" style="padding-top:0px">
-         	<h3>Minimum Kills</h3>
-  			<input class="slider" type="range" id="rangeinput" name="kills" value="0" onchange="rangevalue.value=value" />
-  			<span class="highlight"></span>
-  			<output id="rangevalue">0</output>
-		 </div>
-		 <div id="slider" style="padding-top:0px">
-         	<h3>Minimum Romances</h3>
-  			 <input type="range" min="0" max="20" name="romances" value="0" class="slider" id="myRange" onchange="rangevalue1.value=value">
-  			<span class="highlight"></span>
-  			<output id="rangevalue1">0</output>
-		 </div>
-		 
-		 <div>
-            <h3>Character Status</h3>
-            <label class="checkbox-inline"><input type="checkbox" name="alive" value="true"/>Alive</label>
-            <label class="checkbox-inline"><input type="checkbox" name="dead" value="true"/>Dead</label>
-            <label class="checkbox-inline"><input type="checkbox" name="traitor" value="true"/>Traitor</label>
-            <label class="checkbox-inline"><input type="checkbox" name="weirdo" value="true"/>Weirdo</label>
-         </div>
-         
-         <div>
-            <h3>Sort By</h3>
-            <div class="form-group">
-			  <label for="sel1">Royalty:</label>
-			  <select class="form-control-inline" id="sel1" name="royalOrder">
-			    <option>None</option>
-			    <option>ASC</option>
-			    <option>DESC</option>
-			  </select>
-			  <label for="sel1" style="padding-left:10px">Kills:</label>
-			  <select class="form-control-inline" id="sel1" name="killOrder">
-			    <option>None</option>
-			    <option>ASC</option>
-			    <option>DESC</option>
-			  </select>
-			  <label for="sel1" style="padding-left:10px">Romances:</label>
-			  <select class="form-control-inline" id="sel1" name="romanceOrder">
-			  	<option>None</option>
-			    <option>ASC</option>
-			    <option>DESC</option>
-			  </select>
-			</div>
-         </div>
-		 
-         <div class = "text-center space">
-            <button type="submit" class="btn btn-success">Submit</button>
-         </div>
-        </form>
-	</div>
-</div>
 
 <br>
 <br>

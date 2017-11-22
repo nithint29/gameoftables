@@ -27,10 +27,10 @@ constraint pk_ally primary key (charID)
 
 drop table if exists romances;
 create table if not exists romances(
-charID1 varchar(5),
+charID1 varchar(5) references characters(charID),
 name1 varchar(50),
 surname1 varchar(50),
-charID2 varchar(5),
+charID2 varchar(5) references characters(charID),
 name2 varchar(50),
 surname2 varchar(50),
 
@@ -40,10 +40,10 @@ constraint pk_ally primary key (charID1,charID2)
 
 drop table if exists kills;
 create table if not exists kills(
-killerID varchar(5),
+killerID varchar(5) references characters(charID),
 killerName varchar(50),
 killerSurname varchar(50),
-victimID varchar(5),
+victimID varchar(5) references characters(charID),
 victimName varchar(50),
 victimSurname varchar(50),
 
