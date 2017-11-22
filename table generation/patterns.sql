@@ -31,7 +31,13 @@ select charID1 from romances group by charID1 having count(*) >4;
 SELECT * FROM characters where (characters.charID in (select charID1 from romances group by charID1 having count(*) >= 1));
 select charID1 from romances group by charID1 having count(*) >= 4;
 select * from romances;
-#best at combat:
+
+SELECT count(*),killerName from kills group by killerID  order by count(*) DESC limit 5000;
+#put in main chars
+#map
+#game or login
+#improve houses page
+#best at combat
 
 #select * from allegiances where surname like 'Tyrell' and surname<>allegiance;
 #select char_length(allegiance),allegiance from allegiances where allegiance not like 'Tyrell%' and surname like 'Tyrell';

@@ -180,6 +180,8 @@ padding-bottom:50px;
 			String traitor = request.getParameter("traitor");
 			String weirdo = request.getParameter("weirdo");
 			String royalOrder = request.getParameter("royalOrder");
+			String killOrder = request.getParameter("killOrder");
+			String romOrder = request.getParameter("romanceOrder");
 			
 			String houseString = "('Stark','Targaryen','Lannister','Tyrell','Martell','Bolton','Baratheon','Arryn','Greyjoy','Frey')";
 			
@@ -223,9 +225,13 @@ padding-bottom:50px;
 			{
 				str +=" AND (charID in (select charID1 from romances group by charID1 having count(*) >= "+roms+ ")) ";
 			}
-			if( !royalOrder.equals("None"))
+			if( royalOrder!= null && !royalOrder.equals("None"))
 			{
 				str +=" ORDER BY royaltyscale "+ royalOrder +" ";
+			}
+			if( killOrder!= null && !killOrder.equals("None"))
+			{
+				str +=" ORDER BY royaltyscale "+ killOrder +" ";
 			}
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
@@ -261,7 +267,7 @@ padding-bottom:50px;
 				//make a row
 				out.print("<tr>");
 				//make a column
-				 //out.print("<td><a href=\"#\">Two</a></td>");
+				//out.print("<td><a href=\"#\">Two</a></td>");
 				String charName = result.getString("name");
 				String id = result.getString("charID");
 				out.print("<td><a href = \"character.jsp?name=" + charName + "&id=" + id+"\" >");

@@ -1,0 +1,15 @@
+name,xcoord,ycoord,house
+Highgarden,244,1066,Tyrell
+Casterly Rock,167,850,Lannister
+Dragonstone,611,793,Targaryen
+Riverrun,315,765,Frey
+Kingslanding,483,874,Lannister
+Storms End,560,1020,Baratheon
+Sunspear,600,1227,Martell
+Dorne,400,1220,Martell
+Pyke,164,706,Greyjoy
+Pentos,810,906,Targaryen
+Harrenhal,400,800,Bolton
+Winterfell,368,335,Stark
+Bear Island,228,187,Stark
+The Twins,330,627,Frey
