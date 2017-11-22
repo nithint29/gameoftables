@@ -75,6 +75,7 @@ padding-left:550px;
         <li><a href="#about">ABOUT</a></li>
         <li><a href="#characters">CHARACTERS</a></li>
         <li><a href="#houses">HOUSES</a></li>
+        <li><a href="#fantasy">FANTASY RANKS</a></li>
         <li><a href="#map">MAP</a></li>
       </ul>
     </div>
@@ -193,6 +194,74 @@ padding-left:550px;
 </div>
     <br>
     <br>
+    
+<div class = "hr" id="fantasy">
+<div class = "text-center">
+<h2 class = "font">FANTASY RANKS</h2>
+</div>
+<br>
+<div class = "space">
+
+<div class="container">
+<% 
+try
+{
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();		
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+			String str = "select (count(*)*2) + (c.royaltyScale*10) + ((select count(*) from romances r, characters cx where cx.charID = r.charID1 and cx.charID = c.charID group by r.charID1) *5) as score, c.name, c.surname from kills k, characters c where c.charID = k.killerID group by k.killerID order by score desc limit 7";
+			ResultSet res = stmt.executeQuery(str);
+			
+			out.print("<table class=\"datatable table table-striped table-bordered table-hover\">");
+			out.print("<thead>");
+			//make a row
+			out.print("<tr>");
+			//make a column
+			//make a column
+			out.print("<td>");
+			//depending on the radio button selection make a column header for Manufacturer if the beers table was selected and Address if the bars table was selected
+
+			out.print("name");
+			out.print("</td>");
+			out.print("<td>");
+			out.print("surname");
+			out.print("</td>");
+			out.print("</tr>");
+			out.print("</thead>");
+			out.print("<tbody id = \"myTable\">");
+			//parse out the results
+			while (res.next() && res!=null) {
+				out.print("<tr>");
+				
+				String name = res.getString("name");
+				String surname = res.getString("surname");
+				
+				out.print("<td>");
+				out.print(name);
+				out.print("</td>");
+				out.print("<td>");
+				out.print(surname);
+				out.print("</td>");
+				out.print("</tr>");
+			}
+			out.print("</tbody>");
+			out.print("</table>");
+			db.closeConnection(con);
+}
+catch(Exception e)
+{
+	out.print(e);
+}
+%>
+</div>
+<button type="submit" name="command" value="houses" class="btn btn-success">
+        View All Houses
+    </button>
+</div>
+</div>
+
 <div class = "hr" id = "map">
 <div class = "text-center">
 <h2 class = "font">MAP</h2>
