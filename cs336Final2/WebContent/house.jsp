@@ -74,28 +74,31 @@ padding-bottom:50px;
 
 <body>
 <div class="container">
-<h1 class = "font">Characters</h1>
-
-<p class = "font">Type something in the input field to search the table for first names, surnames, gender, or royaltyScale:</p>  
-<input class="form-control" id="myInput" type="text" placeholder="Search..">
-
+<h1 class = "font">Houses</h1>
+<form method="get" action="house.jsp">
+<div class="form-group">
+  <label for="sel1">Select house:</label>
+  <select name = "house" class="form-control" id="sel1">
+  	<option>Choose House</option>
+    <option>Stark</option>
+    <option>Lannister</option>
+    <option>Arryn</option>
+    <option>Baratheon</option>
+    <option>Bolton</option>
+    <option>Frey</option>
+    <option>Greyjoy</option>
+    <option>Martell</option>
+    <option>Targaryen</option>
+    <option>Tyrell</option>
+  </select>
+</div>
+<button type="submit" class="btn btn-success">Submit</button>
+</form>
+<br>
 <div class="filterBar">
 	<button class = "btn btn-primary btn-block bc" data-toggle="collapse" data-target="#filter">Filters</button>
 	<div id="filter" class="collapse">
-	   <form name="form1" method="get" action="show.jsp">
-	   	<div>
-            <h3>Select Houses</h3>
-            <label class="checkbox-inline"><input type="checkbox" name="house" value="Stark"/>Stark</label>
-            <label class="checkbox-inline"><input type="checkbox" name="house" value="Targaryen"/>Targaryen</label>
-            <label class="checkbox-inline"><input type="checkbox" name="house" value="Lannister"/>Lannister</label>
-            <label class="checkbox-inline"><input type="checkbox" name="house" value="Tyrell"/>Tyrell</label>
-            <label class="checkbox-inline"><input type="checkbox" name="house" value="Martell"/>Martell</label>
-            <label class="checkbox-inline"><input type="checkbox" name="house" value="Bolton"/>Bolton</label>
-            <label class="checkbox-inline"><input type="checkbox" name="house" value="Baratheon"/>Baratheon</label>
-            <label class="checkbox-inline"><input type="checkbox" name="house" value="Arryn"/>Arryn</label>
-            <label class="checkbox-inline"><input type="checkbox" name="house" value="Greyjoy"/>Greyjoy</label>
-            <label class="checkbox-inline"><input type="checkbox" name="house" value="Frey"/>Frey</label>
-         </div>
+	   <form name="form1" method="get" action="house.jsp">
          
          <div id="slider" style="padding-top:0px">
          	<h3>Minimum Kills</h3>
@@ -149,8 +152,9 @@ padding-bottom:50px;
 	</div>
 </div>
 
-  <br>
-	<%
+<br>
+<br>
+<%
 	    
 		try {
 			ArrayList<String> al = new ArrayList<String>();
@@ -159,84 +163,61 @@ padding-bottom:50px;
 			Connection con = db.getConnection();		
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			
-			//Get the selected radio button from the index.jsp
-			String str = "SELECT charID,name,surname,gender,royaltyscale FROM characters where TRUE ";
-			String entity = request.getParameter("command");
-			String[] houses = request.getParameterValues("house");
-			String sKills = request.getParameter("kills");
-			int kills=0;
-			if(sKills !=null){
-				kills += Integer.parseInt(sKills);
-			}
-			String sRoms = request.getParameter("romances");
-			int roms=0;
-			if(sRoms !=null){
-				roms += Integer.parseInt(sRoms);
-			}
-			String alive = request.getParameter("alive");
-			String dead = request.getParameter("dead");
-			String traitor = request.getParameter("traitor");
-			String weirdo = request.getParameter("weirdo");
-			String royalOrder = request.getParameter("royalOrder");
-			String killOrder = request.getParameter("killOrder");
-			String romOrder = request.getParameter("romanceOrder");
-			
-			String houseString = "('Stark','Targaryen','Lannister','Tyrell','Martell','Bolton','Baratheon','Arryn','Greyjoy','Frey')";
-			
-			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-			if (entity != null && entity.equals("characters")){
-				str = "SELECT charID,name,surname,gender,royaltyscale FROM characters LIMIT 500";
-			}
-			if(houses != null && houses.length >=0)
+			Statement stmt2 = con.createStatement();
+			Statement stmt3 = con.createStatement();
+			Statement stmt4 = con.createStatement();
+			String houseName = request.getParameter("house");
+			String houseLead = "";
+			int totalAlleg = 0;
+			int totalMemb = 0;
+			ResultSet result = null;
+			if (houseName!=null && !(houseName.equals("Choose House")))
 			{
-				String houseFilter = "AND (surname in (";
-				for(String s:houses)
-				{
-					houseFilter += "'"+s+"',";
-				}
-				houseFilter = houseFilter.substring(0, houseFilter.length()-1);
-				houseFilter+= ")) ";
-				
-				str += houseFilter;
+			String str = "SELECT charID,name,surname,gender,royaltyscale FROM characters where surname = \"" + houseName + "\"";
+			String leaderQuery = "SELECT * from houses where name = \"" + houseName + "\"";
+			String membQuery = "SELECT count(*) as total from characters where surname = \"" + houseName + "\"";
+			String allegQuery = "SELECT count(*) as total from allegiances where allegiance = \"" + houseName + "\"";
+			result = stmt4.executeQuery(str);
+			ResultSet countAlleg = stmt.executeQuery(allegQuery);
+			countAlleg.next();
+			totalAlleg = countAlleg.getInt("total");
+			countAlleg.close();
+			ResultSet countMemb = stmt2.executeQuery(membQuery);
+			countMemb.next();
+			totalMemb = countMemb.getInt("total");
+			countMemb.close();
+			ResultSet leader = stmt3.executeQuery(leaderQuery);
+			leader.next();
+			houseLead = leader.getString("leader");
+			leader.close();
 			}
-			if(alive != null)
+			if(houseName!=null && !(houseName.equals("Choose House")))
 			{
-				str += " AND (not exists(select * from kills where victimID = charID)) ";
-			}
-			if(dead != null)
-			{
-				str += " AND (exists(select * from kills where victimID = charID)) ";
-			}
-			if(traitor != null)
-			{
-				str += " AND (charID in (select charID from allegiances where allegiances.surname <> allegiance and surname in "+ houseString+")) ";
-			}
-			if(weirdo != null)
-			{
-				str += " AND (charID in (select charID1 from romances where surname1=surname2) or charID in (select charID2 from romances where surname1=surname2)) ";
-			}
-			if( kills > 0)
-			{
-				str +=" AND (charID in (select killerID from kills group by killerID having count(*) >= "+kills+ ")) ";
-			}
-			if( roms > 0)
-			{
-				str +=" AND (charID in (select charID1 from romances group by charID1 having count(*) >= "+roms+ ")) ";
-			}
-			if( royalOrder!= null && !royalOrder.equals("None"))
-			{
-				str +=" ORDER BY royaltyscale "+ royalOrder +" ";
-			}
-			if( killOrder!= null && !killOrder.equals("None"))
-			{
-				str +=" ORDER BY royaltyscale "+ killOrder +" ";
-			}
-			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(str);
-			
-			//Make an HTML table to show the results in:
-				//before: table table-hover
+			String picPath = houseName.toLowerCase()+"sigil.png";
+			out.print("<h1 style = \"text-align:center;\" class = \"font\">");
+			out.print("House " + houseName);
+			out.print("</h1>");
+			out.print("<br>");
+			out.print("<div style = \"width:100%; display:table\">");
+			out.print("<div style = \"display: table-row\">");
+			out.print("<div style = \"display: table-cell;\">");
+			out.print("<p style = \"text-align:left;\">");
+			out.print("<img src = \""+picPath+"\" style = \"width:150px;height:150px;\">");
+			out.print("</p>");
+			out.print("</div>");
+			out.print("<div class = \"font\" style = \"display: table-cell;\">");
+			out.print("<h2>");
+			out.print("Leader of house: " + houseLead);
+			out.print("<br>");
+			out.print("Total characters alleged to this house: " + totalAlleg);
+			out.print("<br>");
+			out.print("Total members from this house: " + totalMemb);
+			out.print("</h2>");
+			out.print("</div>");
+			out.print("</div>");
+			out.print("</div>");
+			out.print("<br>");
+			out.print("<br>");
 			out.print("<table class=\"datatable table table-striped table-bordered table-hover\">");
 			out.print("<thead>");
 			//make a row
@@ -266,7 +247,7 @@ padding-bottom:50px;
 				//make a row
 				out.print("<tr>");
 				//make a column
-				//out.print("<td><a href=\"#\">Two</a></td>");
+				 //out.print("<td><a href=\"#\">Two</a></td>");
 				String charName = result.getString("name");
 				String id = result.getString("charID");
 				out.print("<td><a href = \"character.jsp?name=" + charName + "&id=" + id+"\" >");
@@ -302,24 +283,13 @@ padding-bottom:50px;
 
 			//close the connection.
 			db.closeConnection(con);
-		} catch (Exception e) {
+			}
+		}catch(Exception e)
+		{
 			out.print(e);
 		}
-	%>
+			%>
 </div>
 
-<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-    $('#myTable').DataTable( {
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-    } );
-  });
-});
-</script>
 </body>
 </html>
