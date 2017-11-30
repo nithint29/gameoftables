@@ -37,7 +37,7 @@ try
 			Statement stmt2 = con.createStatement();
 			Statement stmt3 = con.createStatement();
 			 id = request.getParameter("id");
-			 out.print(id);
+			
 			String romances = "SELECT name1,surname1,name2,surname2 from romances where charID1 = " + id;
 			String totalRom = "SELECT count(*) as total from romances where charID1 =" + id;
 			String kills = "SELECT * from kills where killerID = " + id;
@@ -156,17 +156,19 @@ try
 <br>
 <br>
 <div >
-
 <form action="change.jsp">
-<label for="usr">Character ID:</label>
-<input type="hidden" name="name" value=<%=name%>/>
-<input type="hidden" name="id" value=<%=id%>/>
-<p>old victim:</p>
-<input type="text" class="form-control" id="usr" name="kill">
-<p>new victim:</p>
-<input type="text" class="form-control" id="usr" name="new">
-<input type="submit" value="Change Kill"/>
+  Current Character ID: <input type="text" class = "form-control" name="curr" value="<%out.print(id);%>" readonly><br>
+  New Character ID:<input type="text" class = "form-control" id = "usr" name="new"><br>
+  
+  <div class="radio">
+  <label><input type="radio" name="optradio" value = "kill">Add Kill</label>
+</div>
+<div class="radio">
+  <label><input type="radio" name="optradio" value = "love">Add Lover</label>
+</div>
+  <input type="submit" value="Submit">
 </form>
+
 
 </div>
 

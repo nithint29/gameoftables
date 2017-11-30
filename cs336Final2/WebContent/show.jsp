@@ -267,6 +267,10 @@ padding-bottom:50px;
 			//make a column
 			out.print("<td>");
 			//print out column header
+			out.print("Character ID");
+			out.print("</td>");
+			out.print("<td>");
+			//print out column header
 			out.print("name");
 			out.print("</td>");
 			//make a column
@@ -292,6 +296,9 @@ padding-bottom:50px;
 				//out.print("<td><a href=\"#\">Two</a></td>");
 				String charName = result.getString("name");
 				String id = result.getString("charID");
+				out.print("<td>");
+				out.print(id);
+				out.print("</td>");
 				out.print("<td><a href = \"character.jsp?name=" + charName + "&id=" + id+"\" >");
 				//Print out current bar or beer name:
 				if (result.getString("name")!=null)

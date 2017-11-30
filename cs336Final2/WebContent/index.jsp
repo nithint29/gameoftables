@@ -84,6 +84,7 @@ background-size: cover;
         <li><a href="#houses">HOUSES</a></li>
         <li><a href="#fantasy">FANTASY RANKS</a></li>
         <li><a href="#map">MAP</a></li>
+        <li><a href="#patterns">VIEW PATTERNS</a></li>
       </ul>
     </div>
     </div>
@@ -304,6 +305,27 @@ catch(Exception e)
 
 	</div>
 </div>
+<br>
+<br>
+<div class = "hr container-fluid text-center bg-chars" id = "patterns">
+<div class = "text-center">
+<h2 class = "font">VIEW PATTERNS</h2>
+</div>
+
+<p class = "font">View the various patterns our application has to offer. </p>
+<br>
+<br>
+
+<form style="text-align:center;" method="get" action="patterns.jsp">
+	<button type="submit" name="command" value="charPatterns" class="btn btn-success">
+        Character Patterns
+    </button>
+    <button type="submit" name="command" value="mapPatterns" class="btn btn-success">
+        Map Patterns
+    </button>
+</form>
+</div>
+
 <br>
 <script>
 $(document).ready(function(){
