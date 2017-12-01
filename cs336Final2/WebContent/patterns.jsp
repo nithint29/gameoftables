@@ -66,19 +66,45 @@ if (id.equals("charPatterns"))
 	out.print("</td>");
 	out.print("<td>");
 	//print out column header
-	out.print("Check Stark in houses and check status as Traitor");
+	out.print("Check the Stark checkbox in houses and check status as Traitor. Click 'Submit'. ");
 	out.print("</td>");
 	out.print("</tr>");
 	out.print("<tr>");
 	out.print("<td>");
 	//print out column header
-	out.print("Targaryens have very high number of kills due to dragons.");
+	out.print("Targaryens tend to have higher numbers of kills due to dragons.");
 	out.print("</td>");
 	out.print("<td>");
 	//print out column header
-	out.print("Check Targaryen in houses and move kills slider to 19.");
+	out.print("Move the kills slider to 15, you will see that most of the characters are Targaryens.");
 	out.print("</td>");
 	out.print("</tr>");
+	
+	
+	out.print("<tr>");
+	out.print("<td>");
+	//print out column header
+	out.print("Some other 'warrior' houses also have slightly high numbers of kills: Starks, Baratheons.");
+	out.print("</td>");
+	out.print("<td>");
+	//print out column header
+	out.print(" Move the kills slider to other numbers to see how other house members fare.");
+	out.print("</td>");
+	out.print("</tr>");
+	
+	
+	out.print("<tr>");
+	out.print("<td>");
+	//print out column header
+	out.print("People in houses are usually better trained for combat.");
+	out.print("</td>");
+	out.print("<td>");
+	//print out column header
+	out.print(" Move the kills slider to higher and higher numbers to see that more and more people belong to one of the 10 royal houses.");
+	out.print("</td>");
+	out.print("</tr>");
+	
+	
 	out.print("<tr>");
 	out.print("<td>");
 	//print out column header
@@ -89,11 +115,23 @@ if (id.equals("charPatterns"))
 	out.print("Check status as weirdo.");
 	out.print("</td>");
 	out.print("</tr>");
+	
+	out.print("<tr>");
+	out.print("<td>");
+	//print out column header
+	out.print("Some houses tend to have higher numbers of members or allies than others.");
+	out.print("</td>");
+	out.print("<td>");
+	//print out column header
+	out.print("Go to the main pages and go to the houses part and click on 'View all Houses'. In the drop down choose a house to view their stats.");
+	out.print("</td>");
+	out.print("</tr>");
+	
 	out.print("</tbody>");
 	out.print("</table>");
 	
 }
-else{
+else if(id.equals("mapPatterns")){
 	out.print("<div class = \"font\">");
 	out.print("<h1>");
 	out.print("Map Patterns");
@@ -103,7 +141,7 @@ else{
 	out.print("<br>");
 	out.print("1) On home page go to the Map section and click Explore the Continent.");
 	out.print("<br>");
-	out.print("2) Click the filter button to explore these various patterns pertaining to the map.");
+	out.print("2) Click the filter button at the bottom to explore these various patterns pertaining to the map.");
 	out.print("</h3>");
 	out.print("</div>");
 	out.print("<table class=\"datatable table table-striped table-bordered table-hover\">");
@@ -142,7 +180,7 @@ else{
 	out.print("</tr>");
 	out.print("<tr>");
 	out.print("<td>");
-	out.print("Characters of a house are found in a common place for the most part (Starks are found in Winterfell and Bear Island, for example).");
+	out.print("Characters of a house are found in a common place for the most part (Starks allies are found in Winterfell and Bear Island, for example).");
 	out.print("</td>");
 	out.print("<td>");
 	out.print("Check the house name in the filter and click submit and observe that the circles are concentrated near a city where the members of that house are located.");
@@ -150,6 +188,28 @@ else{
 	out.print("</tr>");
 	out.print("</tbody>");
 	out.print("</table>");
+	
+}
+
+else {
+	out.print("<div class = \"font\">");
+	out.print("<h1>");
+	out.print("Updating the Database");
+	out.print("</h1>");
+	out.print("<h3>");
+	out.print("Follow these steps to learn about adding to the database: ");
+	out.print("<br>");
+	out.print("<br>");
+	out.print("1) On home page go to the Characters section and click View all Characters.");
+	out.print("<br>");
+	out.print("<br>");
+	out.print("2) Click on a characters name and scroll to the bottom.");
+	out.print("<br>");
+	out.print("<br>");
+	out.print("3) Choose either 'Add Kill' or 'Add Lover', enter the character and click submit.");
+	out.print("</h3>");
+	out.print("</div>");
+	
 	
 }
 %>

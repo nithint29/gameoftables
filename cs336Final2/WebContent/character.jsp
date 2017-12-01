@@ -38,7 +38,7 @@ try
 			Statement stmt3 = con.createStatement();
 			 id = request.getParameter("id");
 			
-			String romances = "SELECT name1,surname1,name2,surname2 from romances where charID1 = " + id;
+			String romances = "SELECT name1,surname1,name2,surname2,charID2 from romances where charID1 = " + id;
 			String totalRom = "SELECT count(*) as total from romances where charID1 =" + id;
 			String kills = "SELECT * from kills where killerID = " + id;
 			String totalKills = "SELECT count(*) as total from kills where killerID = " + id;
@@ -86,6 +86,10 @@ try
 			//print out column header
 			out.print("Lover Surname");
 			out.print("</td>");
+			out.print("<td>");
+			//print out column header
+			out.print("Lover ID");
+			out.print("</td>");
 			out.print("</tr>");
 			while (result.next() && result !=null) {
 				//make a row
@@ -95,6 +99,9 @@ try
 				out.print("</td>");
 				out.print("<td>");
 				out.print(result.getString("surname2"));
+				out.print("</td>");
+				out.print("<td>");
+				out.print(result.getString("charID2"));
 				out.print("</td>");
 				out.print("</tr>");
 			}
@@ -155,7 +162,11 @@ try
 <br>
 <br>
 <br>
-<div >
+
+
+<p class= "container">Here, kills and romances can be added to this character. Enter the character to add and choose the relationship to add to. Then press submit.</p>
+<p class="container">The constraint is for kills and romances to be within the characters is the database. </p>
+<div class = "container">
 <form action="change.jsp">
   Current Character ID: <input type="text" class = "form-control" name="curr" value="<%out.print(id);%>" readonly><br>
   New Character ID:<input type="text" class = "form-control" id = "usr" name="new"><br>
