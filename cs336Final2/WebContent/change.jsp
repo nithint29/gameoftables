@@ -43,7 +43,7 @@ String newLastName = res2.getString("surname");
 
 String insertQuery = "insert into kills (killerID, killerName, killerSurname, victimID, victimName, victimSurname) values ('"+id+"','"+currFirstName+"','" +currLastName+"','"+newVic+"','"+newFirstName+"','"+newLastName+"')";
 stmt.execute(insertQuery);
-out.print("kill added to "+id);
+out.print("Kill added to "+id);
 }
 else{
 	ApplicationDB db = new ApplicationDB();	
@@ -74,11 +74,11 @@ else{
 
 	String insertQuery = "insert into romances (charID1, name1, surname1, charID2, name2, surname2) values ('"+id+"','"+currFirstName+"','" +currLastName+"','"+newVic+"','"+newFirstName+"','"+newLastName+"')";
 	stmt.execute(insertQuery);
-	out.print("kill added to "+id);
+	out.print("Romance added to "+id);
 }
 }catch(Exception e)
 {
-	out.print("Constraint violated: the character you added doesn't exist.");
+	out.print("Constraint violated: the character you added doesn't exist or has already been added.");
 }
 
 %>
